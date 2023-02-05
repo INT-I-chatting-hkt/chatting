@@ -19,7 +19,7 @@ public class ChattingRoomRepository {
                 .getResultList();
     }
 
-    public ChattingRoom findRoomById(String id){
+    public ChattingRoom findRoomById(Long id){
         return em.find(ChattingRoom.class,id);
     }
 

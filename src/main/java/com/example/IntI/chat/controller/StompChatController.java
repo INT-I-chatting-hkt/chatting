@@ -1,6 +1,13 @@
 package com.example.IntI.chat.controller;
 
 import com.example.IntI.chat.domain.ChatMessageDto;
+import com.example.IntI.chat.domain.MessageType;
+import com.example.IntI.chat.domain.Question;
+import com.example.IntI.chat.service.ChattingRoomService;
+import com.example.IntI.chat.service.QuestionService;
+import com.example.IntI.chat.service.UserService;
+import com.example.IntI.domain.ChattingRoom;
+import com.example.IntI.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -12,6 +19,9 @@ import org.springframework.stereotype.Controller;
 @Log4j2
 public class StompChatController {
     private final SimpMessagingTemplate template;
+    private final QuestionService questionService;
+    private final ChattingRoomService chattingRoomService;
+    private final UserService userService;
 
     /**
      * pub Endpoint
@@ -19,12 +29,17 @@ public class StompChatController {
      */
     @MessageMapping(value = "/chat/enter")
     public void enter(ChatMessageDto message){
-        message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
+        message.setMessage(message.getUserId() + "님이 채팅방에 참여하였습니다.");
         template.convertAndSend("/sub/chat/room" + message.getRoomId(),message);
     }
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto message){
-        log.info("# user name : "+message.getWriter());
+        if(message.getMessageType().equals(MessageType.Question)){
+            ChattingRoom chattingRoom = chattingRoomService.findOne(message.getRoomId());
+            User user = userService.findOne(message.getUserId());
+            questionService.join(Question.create(message.getMessage(),user,chattingRoom));
+        }
+        log.info("# user id : "+message.getUserId());
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 }
