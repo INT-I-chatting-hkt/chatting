@@ -25,17 +25,13 @@ public class TestConfig {
     @Component
     @Transactional
     @RequiredArgsConstructor
-    public class InitService{
-        private final UserRepository userRepository;
-
+    static class InitService{
         private final EntityManager em;
 
         public void dbInit1(){
             String nickname = "johan";
-            userRepository.join(User.createUser(nickname));
-            return;
+            em.persist(User.createUser(nickname));
         }
-
     };
 
 }

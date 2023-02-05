@@ -9,14 +9,13 @@ import java.util.UUID;
 
 @Data
 public class ChatRoomDto {
-    private String roomId;
     private String name;
-    private Set<WebSocketSession> socketSessions = new HashSet<>();
+    private String description;
 
-    public static ChatRoomDto create(String name){
+    public static ChatRoomDto create(String name,String description){
         ChatRoomDto room = new ChatRoomDto();
-        room.roomId = UUID.randomUUID().toString();
         room.name = name;
+        room.description = description;
         return room;
     }
 }

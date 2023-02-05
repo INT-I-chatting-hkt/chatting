@@ -1,5 +1,6 @@
 package com.example.IntI.domain;
 
+import com.example.IntI.chat.domain.ChatRoomDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,4 +18,16 @@ public class ChattingRoom {
     private String name;
     private String description;
     private String profileUrl;
+    protected ChattingRoom(String name,String description,String profileUrl){
+        this.name=name;
+        this.description=description;
+        this.profileUrl=profileUrl;
+    }
+    protected ChattingRoom(){
+
+    }
+    public static ChattingRoom create(String name,String description,String profileUrl){
+        ChattingRoom chattingRoom = new ChattingRoom(name,description,profileUrl);
+        return chattingRoom;
+    }
 }
