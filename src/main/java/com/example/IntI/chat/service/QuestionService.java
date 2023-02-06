@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -15,5 +17,9 @@ public class QuestionService {
     @Transactional
     public void join(Question question){
         questionRepository.join(question);
+    }
+
+    public List<Question> findAll(Long roomId){
+        return questionRepository.findAll(roomId);
     }
 }

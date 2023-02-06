@@ -5,13 +5,13 @@
   <div class="container">
     <div>
       <ul th:each="room : ${list}">
-        <li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.name}]]</a></li>
+        <li><a th:href="@{/chat/room(roomId=${room.id})}">[[${room.name}]]</a></li>
       </ul>
     </div>
   </div>
-  <form id="create_form" th:action="@{/chat/room}" method="post">
-    <input type="text" name="name" class="form-control">
-    <input type="text" name="description" class="form-control">
+  <form id="create_form" th:action="@{/chat/room}"  th:object="${chatRoomDto}" method="post">
+    <input type="text" th:field="*{name}" name="name" class="form-control">
+    <input type="text" th:field="*{description}" name="description" class="form-control">
     <button id="btn-create"class="btn btn-secondary">개설하기</button>
   </form>
 </div>

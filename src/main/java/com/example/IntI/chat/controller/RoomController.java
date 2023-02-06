@@ -26,6 +26,7 @@ public class RoomController {
     public String rooms(Model model){
         log.info("# All Chat Rooms");
         model.addAttribute("list",repository.findAllRooms());
+        model.addAttribute("chatRoomDto",new ChatRoomDto());
         return "rooms";
     }
 
