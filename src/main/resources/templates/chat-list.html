@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: #C9E4CA;
+        height: 100vh;
+    }
+
+    .container {
+        padding: 0px;
+    }
+
+    .chatting-container {
+        padding: 15px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    body { color:white; }
+
+    h4{
+        margin: 0px;
+    }
+</style>
+
+<body>
+    <div th:replace="~{/fragment/fragment-parts :: headerCopy}"></div>
+
+    <div class="container" style="width: 40%; background-color: #C9E4CA;margin: auto; height: 80vh; overflow: scroll;">
+        <div class="room-info-container" style="padding: 15px;">
+            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
+                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
+                    <img src="/images/chat-main-img.png">
+                </div>
+                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
+                    <h4>알고리즘 스터디</h4>
+                    <div style="padding-top: 2vh;">
+                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="room-info-container" style="padding: 15px;">
+            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
+                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
+                    <img src="/images/chat-main-img.png">
+                </div>
+                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
+                    <h4>알고리즘 스터디</h4>
+                    <div style="padding-top: 2vh;">
+                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="room-info-container" style="padding: 15px;">
+            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
+                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
+                    <img src="/images/chat-main-img.png">
+                </div>
+                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
+                    <h4>알고리즘 스터디</h4>
+                    <div style="padding-top: 2vh;">
+                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="room-info-container" style="padding: 15px;">
+            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
+                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
+                    <img src="/images/chat-main-img.png">
+                </div>
+                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
+                    <h4>알고리즘 스터디</h4>
+                    <div style="padding-top: 2vh;">
+                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="room-info-container" style="padding: 15px;">
+            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
+                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
+                    <img src="/images/chat-main-img.png">
+                </div>
+                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
+                    <h4>알고리즘 스터디</h4>
+                    <div style="padding-top: 2vh;">
+                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:replace="~{/fragment/fragment-parts :: footerCopy}"></div>
+
+</body>
+
+</html>

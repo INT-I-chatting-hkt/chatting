@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="/css/qna-style.css" />
+    <script type="text/javascript" src="/js/KDY-main.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+    />
+
+    <!-- 부가적인 테마 -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"
+    />
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+  </head>
+
+  <body style="background-color: #c9e4ca; height: 100vh">
+    <div th:replace="~{/fragment/fragment-parts :: headerCopy}"></div>
+
+    <div
+      style="
+        width: 40%;
+        background-color: #c9e4ca;
+        margin: auto;
+        height: 80vh;
+        overflow: scroll;
+        padding: 0px;
+      "
+    >
+      <div class="main_chat">
+        <div class="question_list">
+          <div class="question" style="cursor: initial">
+            <div class="question_box">
+              <div class="user_info">
+                <img class="profile" src="/images/KDY-dora.jpg" alt="dora" />
+                <div class="question_info">
+                  <h3 class="user_name">도라에몽</h3>
+                  <h6 class="date">23-01-17 12:57PM</h6>
+                </div>
+              </div>
+
+              <p>
+                하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
+                하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
+                하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
+              </p>
+
+              <div class="answer">
+                <div class="answer_best_message">
+                  <div class="user_info">
+                    <img
+                      class="profile"
+                      src="/images/KDY-jingu.jpeg"
+                      alt="jingu"
+                    />
+                    <div class="question_info">
+                      <h3 class="user_name">노진구</h3>
+                      <h6 class="date">23-01-17 12:57PM</h6>
+                    </div>
+                  </div>
+                  <p>
+                    하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음
+                    좋겠네 하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두
+                    할수있음 좋겠네
+                  </p>
+                </div>
+                <hr style="height: 1px; background-color: #364958" />
+
+                <div class="answer_message">
+                  <div class="user_info">
+                    <img
+                      class="profile"
+                      src="/images/KDY-jingu.jpeg"
+                      alt="jingu"
+                    />
+                    <div class="question_info">
+                      <h3 class="user_name">노진구</h3>
+                      <h6 class="date">23-01-17 12:57PM</h6>
+                    </div>
+                  </div>
+                  <p>
+                    하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음
+                    좋겠네 하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두
+                    할수있음 좋겠네
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="~{/fragment/fragment-parts :: footerCopy}"></div>
+  </body>
+</html>
