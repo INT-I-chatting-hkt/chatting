@@ -14,7 +14,6 @@ public class ChattingRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
     private String description;
     private String profileUrl;
