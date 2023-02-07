@@ -55,11 +55,12 @@ body {
 .answer {
   background: #c9e4ca;
   border-radius: 2vh;
-  padding: 2px;
+  padding: 8px;
   margin-top: 10px;
 }
 .answer .profile {
-  border: 2.5px solid #364958;
+  border: 2.5px;
+  solid: #364958;
   height: 40px;
   border-radius: 50%;
 }
@@ -101,6 +102,31 @@ body {
   color: #364958;
 }
 
+.answer_message{
+  padding: 0 7px;
+  margin: 20px 0;
+}
+
 #answer_message{
   color:black;
+  width: 80%;
+  height: 30px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(240, 240, 240);
+}
+
+.star {
+  height: 23px;
+  width: 24px;
+  cursor: pointer;
+  float: right;
+  margin: auto 0 auto auto;
+}
+
+#answer_form{
+  text-align: center;
 }
