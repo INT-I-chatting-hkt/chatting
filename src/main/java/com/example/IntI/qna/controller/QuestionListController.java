@@ -2,11 +2,9 @@ package com.example.IntI.qna.controller;
 
 import com.example.IntI.chat.domain.Question;
 import com.example.IntI.domain.Answer;
-import com.example.IntI.domain.User;
-import com.example.IntI.qna.domain.summaryQuestion;
+import com.example.IntI.qna.domain.summaryQuestionDto;
 import com.example.IntI.qna.service.QnaService;
 import com.example.IntI.security.JwtTokenProvider;
-import com.example.IntI.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +29,9 @@ public class QuestionListController {
 
         List<Question> questionList = qnaService.getAllQuestionsWithAdoptedAnswer(roomId);
 
-        List<summaryQuestion> summaryQuestionList = new ArrayList<>();
+        List<summaryQuestionDto> summaryQuestionList = new ArrayList<>();
         for(Question quest:questionList){
-            summaryQuestion summaryQuest = new summaryQuestion(quest, quest.getAdoptedAnswer());
+            summaryQuestionDto summaryQuest = new summaryQuestionDto(quest, quest.getAdoptedAnswer());
             summaryQuestionList.add(summaryQuest);
         }
         log.info("summaryQuestions={}", summaryQuestionList);
@@ -75,6 +73,8 @@ public class QuestionListController {
     @ResponseBody
     @PostMapping("/answer")
     public Long createAnswer(@RequestBody AnswerForm answerForm, HttpServletRequest request){
+        log.info("answerForm={}", answerForm);
+
         String token = jwtTokenProvider.resolveCookieToken(request,"inti-token");
         String userId = jwtTokenProvider.getValidateValue(token);
         return qnaService.createAnswer(userId,answerForm.getContext(),answerForm.getQuestionId());
