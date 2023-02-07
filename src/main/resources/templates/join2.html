@@ -56,9 +56,9 @@
 
 <body>
 <div class="login-container"
-     style="padding: 15px; width: 100%; max-width: 500px; background-color: #c9e4ca; margin: auto; margin-top: 50px;padding-bottom: 41px;">
+     style="padding: 15px; width: 100%; max-width: 500px; background-color: #c9e4ca; margin: auto; height: 480px; margin-top: 90px; border-radius: 30px;">
   <div style="text-align: center; color: #3b6064">
-    <h1>회원가입</h1>
+    <h1 style="padding: 5px;font-weight:bold;">회원가입</h1>
   </div>
   <form style="width: 70%; margin: auto" action="/join" th:object="${userCreateForm}" method="post">
     <input type="text" th:field="*{userId}"class="account" placeholder="ID" />
@@ -69,7 +69,7 @@
     <div style="text-align: end">
       <a href="/login" style="font-size: 15px; color: #3b6064">로그인</a>
       <button
-              style="background-color: #3b6064; width: 100%; border-radius: 5px; border: none; margin-top: 40px; padding: 15px 0px">회원가입</button>
+              style="background-color: #3b6064; width: 100%; border-radius: 15px; border: none; margin-top: 40px; padding: 15px 0px">회원가입</button>
     </div>
   </form>
 </div>

@@ -58,14 +58,14 @@
     </div>
   </div>
 
-  <div class="container" style="width: 40%; background-color: #c9e4ca; margin: auto; overflow: scroll; height: 75vh;">
-    <form id="create-form"style="width: 70%; margin: auto; padding-top: 12vh;" th:action="@{/chat/room/join}"
+  <div class="container" style="padding: 15px; width: 100%; max-width: 500px; background-color: #c9e4ca; margin: auto; height: 480px; margin-top: 90px; border-radius: 30px;">
+  <form id="create-form"style="width: 70%; margin: auto; padding-top: 12vh;" th:action="@{/chat/room/join}"
     th:object="${chatRoomDto}" method="post">
       <input type="text" th:field="*{name}" class="account" placeholder="Room Name" />
       <input type="text" th:field="*{description}"class="account" placeholder="Description" style="margin-bottom: 10px" />
       <div style="text-align: end">
         <button id="btn-create"
-                style="background-color: #3b6064; width: 100%; border-radius: 5px; border: none; margin-top: 40px; padding: 15px 0px">채팅방 생성</button>
+                style="background-color: #3b6064; width: 100%; border-radius: 5px; border: none; margin-top: 40px; padding: 15px 0px">채팅방 생성22</button>
       </div>
     </form>
   </div>

@@ -56,17 +56,17 @@
 
 <body>
 <div class="login-container"
-     style="padding: 15px; width: 100%; max-width: 500px; background-color: #c9e4ca; margin: auto; height: 400px; margin-top: 50px;">
+     style="padding: 15px; width: 100%; max-width: 500px; background-color: #c9e4ca; margin: auto; height: 380px; margin-top: 140px; border-radius: 30px;">
     <div style="text-align: center; color: #3b6064">
-        <h1>채팅방 생성</h1>
+        <h1 style="padding: 5px;font-weight:bold;">채팅방 생성</h1>
     </div>
     <form id="create-form"style="width: 70%; margin: auto;" th:action="@{/chat/room/join}"
           th:object="${chatRoomDto}" method="post">
         <input type="text" th:field="*{name}" class="account" placeholder="Room Name" />
         <input type="text" th:field="*{description}"class="account" placeholder="Description" style="margin-bottom: 10px" />
         <div style="text-align: end">
-            <button id="btn-create"
-                    style="background-color: #3b6064; width: 100%; border-radius: 5px; border: none; margin-top: 40px; padding: 15px 0px">채팅방 생성</button>
+            <button
+                    style="background-color: #3b6064; width: 100%; border-radius: 15px; border: none; margin-top: 40px; padding: 15px 0px">채팅방 생성</button>
         </div>
     </form>
 </div>
