@@ -51,15 +51,15 @@
         <div class="question_list">
           <div class="question" style="cursor: initial">
             <div class="question_box">
-              <div class="user_info">
-                <div th:if="${question.user.profileUrl == null}">
+              <div th:with="questUser=${question.user}" class="user_info">
+                <div th:if="${questUser.profileUrl == null}">
                   <img class="profile" src="/images/user-default.png" alt="dora"/>
                 </div>
-                <div th:unless="${question.user.profileUrl == null}">
+                <div th:unless="${questUser.profileUrl == null}">
                   <img class="profile" src="/images/KDY-dora.jpg" alt="dora"/>
                 </div>
                 <div class="question_info">
-                  <h3 class="user_name"><span th:text="${question.user.nickname}">사용자</span></h3>
+                  <h3 class="user_name"><span th:text="${questUser.nickname}">사용자</span></h3>
                   <h6 class="date"><span th:text="${question.createTime}">시간</span></h6>
                 </div>
               </div>
@@ -68,22 +68,22 @@
               </p>
 
               <div class="answer">
-                <div class="answer_best_message">
+                <div class="answer_best_message" th:if="${answerAdopt != null}">
                   <div class="user_info">
-                    <img
-                      class="profile"
-                      src="/images/KDY-jingu.jpeg"
-                      alt="jingu"
-                    />
-                    <div class="question_info">
-                      <h3 class="user_name">노진구</h3>
-                      <h6 class="date">23-01-17 12:57PM</h6>
+                    <div th:if="${answerAdopt.user.nickname == null}">
+                      <img class="profile" src="/images/user-default.png" alt="jingu"/>
                     </div>
+                    <div th:unless="${answerAdopt.user.profileUrl == null}">
+                      <img class="profile" src="/images/KDY-jingu.jpeg" alt="jingu"/>
+                    </div>
+                    <div class="question_info">
+                      <h3 class="user_name"><span th:text="${answerAdopt.user.nickname}">사용자</span></h3>
+                      <h6 class="date"><span th:text="${answerAdopt.createTime}">시간</span></h6>
+                    </div>
+                    <img class="star" src="/images/star.png" style="cursor: pointer;" alt="star" th:data-id="${answerAdopt.id}"/>
                   </div>
                   <p>
-                    하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음
-                    좋겠네 하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두
-                    할수있음 좋겠네
+                    <span th:text="${answerAdopt.context}">질문 내용</span>
                   </p>
                 </div>
 
