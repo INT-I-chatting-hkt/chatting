@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- 합쳐지고 최소화된 최신 CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+  <!-- 부가적인 테마 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" />
+
+  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  body {
+    background-color: #87bba2;
+  }
+
+  /* .container {
+      padding: 0px;
+    } */
+
+  .account {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 100px;
+    border: 1px solid #3b6064;
+    padding: 15px 0px 15px 15px;
+    width: 100%;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: #3b6064;
+  }
+
+  .account::placeholder {
+    font-size: 15px;
+  }
+
+  .account:focus {
+    outline: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  body {
+    color: white;
+  }
+</style>
+
+<body>
+<div class="login-container"
+     style="padding: 15px; width: 100%; max-width: 500px; background-color: #c9e4ca; margin: auto; margin-top: 50px;padding-bottom: 41px;">
+  <div style="text-align: center; color: #3b6064">
+    <h1>회원가입</h1>
+  </div>
+  <form style="width: 70%; margin: auto" action="/join" th:object="${userCreateForm}" method="post">
+    <input type="text" th:field="*{userId}"class="account" placeholder="ID" />
+    <input type="password" th:field="*{userPassword}"
+           class="account" placeholder="Password" style="margin-bottom: 10px" />
+    <input type="text" th:field="*{nickName}"
+           class="account" placeholder="Nickname" style="margin-bottom: 10px" />
+    <div style="text-align: end">
+      <a href="/login" style="font-size: 15px; color: #3b6064">로그인</a>
+      <button
+              style="background-color: #3b6064; width: 100%; border-radius: 5px; border: none; margin-top: 40px; padding: 15px 0px">회원가입</button>
+    </div>
+  </form>
+</div>
+</body>
+
+</html>

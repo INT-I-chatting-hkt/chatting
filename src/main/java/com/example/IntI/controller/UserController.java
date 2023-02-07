@@ -25,6 +25,6 @@ public class UserController {
     @GetMapping("/join")
     public String getJoin(Model model){
         model.addAttribute("userCreateForm",new UserCreateForm());
-        return "join";
+        return "join2";
     }
 }
