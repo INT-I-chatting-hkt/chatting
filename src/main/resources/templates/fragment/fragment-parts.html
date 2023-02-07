@@ -17,6 +17,11 @@
         <img th:style="${'height: 3vh; margin-right: 20px'}" src="/images/search.png"/>
         <img th:style="${'height: 3vh; cursor: pointer;'}" src="/images/createRoom.png" th:onClick="|location.href='@{chat/room/join}'|"/>
       </div>
+      <div th:unless="${title=='채팅 목록'}">
+        <div th:if="${title!='질문 목록'}">
+          <img th:style="${'height: 3vh; cursor: pointer;'}" src="/images/list.png" th:onClick="|location.href='@{../qna(roomId=${room.id})}'|"/>
+        </div>
+      </div>
     </div>
   </div>
 </header>
