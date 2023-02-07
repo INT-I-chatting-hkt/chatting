@@ -30,12 +30,12 @@
   <div th:style="${'width: 40%; margin: auto; display: flex; padding-top: 5px'}">
     <div th:style="${'width: 50%'}">
       <div th:style="${'width: 40px; margin: auto; padding-top: 9px'}">
-        <img src="/images/chatroomlist.png" th:style="${'max-width: 100%; height: auto'}"/>
+        <img src="/images/chatroomlist.png" th:onClick="|location.href='@{/chat}'|" th:style="${'max-width: 100%; height: auto; cursor: pointer;'}"/>
       </div>
     </div>
     <div th:style="${'width: 50%'}">
-      <div th:style="${'width: 40px; margin: auto; padding-top: 9px'}">
-        <img src="/images/setting.png" th:style="${'max-width: 100%; height: auto'}"/>
+      <div th:style="${'width: 40px; margin: auto; padding-top: 9px; cursor: pointer;'}">
+        <img src="/images/logout.png" th:style="${'max-width: 100%; height: auto'}"/>
       </div>
     </div>
   </div>
