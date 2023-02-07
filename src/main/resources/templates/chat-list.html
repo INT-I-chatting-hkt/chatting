@@ -41,7 +41,7 @@
 </style>
 
 <body>
-    <div th:replace="~{/fragment/fragment-parts :: headerCopy(null, '채팅 목록')}"></div>
+    <div th:replace="~{fragment/fragment-parts::headerCopy(null, '채팅 목록')}"></div>
 
     <div class="container" style="width: 40%; background-color: #C9E4CA;margin: auto; height: 80vh; overflow: scroll;">
         <div th:each="chat : ${chatList}" class="room-info-container" style="padding: 15px;">
@@ -60,7 +60,7 @@
 
     </div>
 
-    <div th:replace="~{/fragment/fragment-parts :: footerCopy}"></div>
+    <div th:replace="~{fragment/fragment-parts :: footerCopy}"></div>
 
 </body>
 
