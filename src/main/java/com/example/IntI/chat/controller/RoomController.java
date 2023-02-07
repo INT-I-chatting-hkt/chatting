@@ -58,6 +58,6 @@ public class RoomController {
         log.info("# user name : "+ user.getNickname());
         model.addAttribute("room", chattingRoomRepository.findRoomById(roomId));
         model.addAttribute("user",user);
-        return "room";
+        return "room2";
     }
 }

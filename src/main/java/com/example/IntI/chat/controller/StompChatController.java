@@ -35,7 +35,7 @@ public class StompChatController {
     }
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto message){
-        if(message.getMessageType()=="Question"){
+        if(message.getMessageType().equals("Question")){
             ChattingRoom chattingRoom = chattingRoomService.findOne(message.getRoomId());
             User user = userService.findOneByUserId(message.getUserId());
             questionService.join(Question.create(message.getMessage(),user,chattingRoom));

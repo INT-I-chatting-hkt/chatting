@@ -7,16 +7,16 @@
 <body>
     <form role="form" action="/join" th:object="${userCreateForm}" method="post">
         <div class="form-group">
-            <label th:for="userId">이름</label>
+            <label th:for="userId">ID</label>
             <input type="text" th:field="*{userId}" class="form-control" placeholder="id를 입력하세요">
         </div>
         <div class="form-group">
-            <label th:for="userPassword">도시</label>
-            <input type="text" th:field="*{userPassword}" class="form-control" placeholder="도시를 입력하세요">
+            <label th:for="userPassword">비밀번호</label>
+            <input type="text" th:field="*{userPassword}" class="form-control" placeholder="비밀번호를 입력하세요">
         </div>
         <div class="form-group">
-            <label th:for="nickName">거리</label>
-            <input type="text" th:field="*{nickName}" class="form-control" placeholder="거리를 입력하세요">
+            <label th:for="nickName">닉네임</label>
+            <input type="text" th:field="*{nickName}" class="form-control" placeholder="닉네임을 입력하세요">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

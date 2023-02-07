@@ -16,6 +16,12 @@
     <meta name="viewport" content="wsidth=device-width, initial-scale=1.0">
     <title>Document</title>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
 </head>
 <style>
     input:focus {outline: none;} /* outline 테두리 없애기 */
@@ -67,7 +73,7 @@
 <div style="height: 100vh;">
     <div class="header" style="background-color: #87BBA2; height: 10vh;">
         <div style="width: 40%; margin: auto;">
-            <p style="font-size: 30px; font-weight: 900; padding-top: 2vh;">채팅방 제목</p>
+            <p style="font-size: 30px; font-weight: 900; padding-top: 2vh;">[[${room.name}]]</p>
         </div>
     </div>
     <div class="container" style="width: 40%; background-color: #C9E4CA;margin: auto; height: 80vh;">
@@ -99,32 +105,6 @@
                                     아아앙 난 네가 정말조아 도라에-몽<br>
                                     앙앙앙 난 니가 정말조아 도라에-몽<br>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="chatting-container">
-                    <div style="display: flex; height: max-content; justify-content: end;">
-                        <div style="max-width: 70%; display: inline;">
-                            <div
-                                    style="background-color: #87BBA2; padding: 9px; border-radius: 15px 15px 0px 15px; display: flex">
-                                <div>
-                                    하고싶은 일모두 할수있음 좋겠네
-                                    하늘만큼 땅만큼 너무나 많은꿈들<br>
-                                    모두모두모두다 이루게해준다네<br>
-                                    신기한주머니로 이루게해준다네<br>
-                                    하늘을 마음껏 날고싶어랑<br>
-                                    -조아 대나무 헬리콥텅!-<br>
-                                    아아앙 난 네가 정말조아 도라에-몽<br>
-                                    앙앙앙 난 니가 정말조아 도라에-몽<br>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="background-color: #C9E4CA; width: 15%; height: 55px;">
-                            <div class="user-image" style="width: 45px; margin: auto;">
-                                <img src="kth-image/user1.png" style="border-radius: 50%;">
                             </div>
                         </div>
                     </div>
@@ -166,7 +146,7 @@
 </div>
 </body>
 
-<script>
+<script th:inline="javascript">
 
 
     var roomName = [[${room.name}]];
@@ -226,18 +206,13 @@
         }
         return dom;
     };
-    const btnClick = document.getElementById("send-btn");
-    function sendChat(flag){
+    function receiveChat(flag,message){
         const ulNode = document.getElementById("chatting-container-ul");
-        const messageBox = document.getElementById("message-input");
-        let message = messageBox.value;
-        messageBox.value = "";
         const liNode = stringToHTML(message,flag);
         ulNode.appendChild(liNode);
         const scrollObj = document.getElementById("chatting-room-container");
         scrollObj.scrollTop = scrollObj.scrollHeight;
     }
-    btnClick.addEventListener("click", sendChat);
     const $question_btn = document.getElementById("question-btn");
     $question_btn.addEventListener("click",()=>{
         if($question_btn.style.backgroundColor!="white"){
@@ -262,7 +237,7 @@
 
         //2. connection이 맺어지면 실행
         stomp.connect({}, function (){
-            console.log("STOMP Connection")
+            console.log("STOMP Connection");
 
             //4. subscribe(path, callback)으로 메세지를 받을 수 있음
             stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
@@ -273,24 +248,26 @@
                 var str = '';
                 console.log("message body : "+content);
                 if(writer === nickName){
-                    sendChat(1)
+                    receiveChat(1,message)
                 }
                 else{
-                    sendChat(2)
+                    receiveChat(2,message)
                 }
             });
-
             //3. send(path, header, message)로 메세지를 보낼 수 있음
             stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, userId: userId, nickName: nickName}))
         });
 
-        $("#button-send").on("click", function(e){
-            var msg = document.getElementById("msg");
-
-            console.log(nickName + ":" + msg.value);
+        $("#send-btn").on("click", function(e){
+            const messageBox = document.getElementById("message-input");
+            let message = messageBox.value;
+            messageBox.value=''
+            let messageType = 'Normal';
+            if($question_btn.style.backgroundColor=="white"){
+                messageType = 'Question';
+            }
             stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, userId: userId, nickName: nickName,
-                message: msg.value, MessageType: 'Normal'}));
-            msg.value = '';
+                message: message, messageType: messageType}));
         });
     });
 </script>
