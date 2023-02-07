@@ -24,4 +24,19 @@ public class Answer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Answer() {
+    }
+
+    public Answer(Question question, User user, String context) {
+        this.context = context;
+        this.question = question;
+        this.user = user;
+        this.createTime = LocalDateTime.now();
+        this.status = Status.NOT_ADOPT;
+    }
+
+    public void updateStatus(Status status) {
+        this.status = status;
+    }
 }
