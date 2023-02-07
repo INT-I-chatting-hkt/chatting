@@ -71,11 +71,8 @@
 
 <body>
 <div style="height: 100vh;">
-    <div class="header" style="background-color: #87BBA2; height: 10vh;">
-        <div style="width: 40%; margin: auto;">
-            <p style="font-size: 30px; font-weight: 900; padding-top: 2vh;">[[${room.name}]]</p>
-        </div>
-    </div>
+    <div th:replace="~{fragment/fragment-parts::headerCopy(null, ${room.name})}"></div>
+
     <div class="container" style="width: 40%; background-color: #C9E4CA;margin: auto; height: 80vh;">
         <div id="chatting-room-container" class="chatting-room-container" style="height: 70vh; overflow: scroll;">
 
@@ -129,20 +126,7 @@
             </div>
         </div>
     </div>
-    <div class="footer" style="background-color: #87BBA2; height: 10vh; width: 100%;">
-        <div style="width: 40%; margin: auto;display: flex;">
-            <div style="width: 50%;">
-                <div style="width:40px; margin:auto;padding-top:9px;">
-                    <img src="/images/kth-image/chatroomlist.png">
-                </div>
-            </div>
-            <div style="width: 50%;">
-                <div style="width:40px; margin: auto;padding-top: 9px;">
-                    <img src="/images/kth-image/setting.png">
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="~{fragment/fragment-parts :: footerCopy}"></div>
 </div>
 </body>
 
