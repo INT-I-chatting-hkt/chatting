@@ -105,6 +105,13 @@
                     <span th:text="${answer.context}">질문 내용</span>
                   </p>
                 </div>
+                <div id="answer_form">
+                  <input id="answer_message" type="text">
+                  <button>
+                    제출
+                  </button>
+                </div>
+
               </div>
             </div>
           </div>
@@ -132,6 +139,35 @@
                     alert("저장 완료");
                   }
                 })
+      });
+
+      $('button').on('click', function(event){
+        // 제출 클릭 시 context, questionId를 post
+
+        let form = document.getElementById('answer_message');
+        let context = form.value; // form에 입력된 text
+        let questionId = [[${question.id}]];
+
+        if (context == ''){
+          window.alert("메세지를 입력해주세요!");
+        }
+        else{
+          fetch('/qna/answer', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              context: context,
+              questionId: questionId
+            })
+          })
+                  .then(response => {
+                    form.value = null;
+                    window.alert("답변이 등록되었습니다.");
+                  })
+
+        }
       });
     </script>
   </body>

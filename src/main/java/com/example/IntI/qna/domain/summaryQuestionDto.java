@@ -4,12 +4,12 @@ import com.example.IntI.domain.Answer;
 import lombok.Data;
 
 @Data
-public class summaryQuestion {
+public class summaryQuestionDto {
 
     private Question question;
     private Answer answer;
 
-    public summaryQuestion(Question question, Answer answer) {
+    public summaryQuestionDto(Question question, Answer answer) {
         this.question = question;
         this.answer = answer;
     }

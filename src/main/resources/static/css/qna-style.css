@@ -101,3 +101,7 @@ body {
   text-align: center;
   color: #364958;
 }
+
+#answer_message{
+  color:black;
+}
