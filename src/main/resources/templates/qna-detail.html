@@ -105,9 +105,9 @@
                     <span th:text="${answer.context}">질문 내용</span>
                   </p>
                 </div>
-                <div id="answer_form">
-                  <input id="answer_message" type="text">
-                  <button>
+                <div id="answer_form" style="padding: 5px">
+                  <input id="answer_message" type="text"style="width: 70%">
+                  <button style="width: 15%">
                     제출
                   </button>
                 </div>
@@ -123,6 +123,8 @@
 
     <script type="text/javascript" th:inline="javascript">
       let questionId = [[${question.id}]];
+      let questionUserId = [[${questionUserId}]];
+      let userId = [[${userId}]];
 
       $('.star').on('click', function(event){
         // star 클릭 시 채택되는 함수
@@ -137,6 +139,8 @@
           body: JSON.stringify({
             answerId: answerId,
             questionId: questionId,
+            questionUserId: questionUserId,
+            userId: userId
           })
         })
                 .then(response => {

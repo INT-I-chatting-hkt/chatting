@@ -1,7 +1,9 @@
 package com.example.IntI.chat.controller;
 
+import com.example.IntI.chat.domain.ChatLog;
 import com.example.IntI.chat.domain.ChatRoomDto;
 import com.example.IntI.chat.repository.ChattingRoomRepository;
+import com.example.IntI.chat.service.ChatLogService;
 import com.example.IntI.chat.service.ChattingRoomService;
 import com.example.IntI.domain.ChattingRoom;
 import com.example.IntI.domain.User;
@@ -16,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/chat")
@@ -26,6 +30,7 @@ public class RoomController {
     private final ChattingRoomService chattingRoomService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    private final ChatLogService chatLogService;
 
     //채팅방 목록 조회
     @GetMapping(value = "/room/join")
@@ -54,6 +59,8 @@ public class RoomController {
         log.info("# get Chat Room, roomID : " + roomId);
         log.info("# find Room Id : "+ chattingRoomRepository.findRoomById(roomId));
         log.info("# user name : "+ user.getNickname());
+        List<ChatLog> chatLogs = chatLogService.findAllByRoomId(roomId);
+        model.addAttribute("chatLogs",chatLogs);
         model.addAttribute("room", chattingRoomRepository.findRoomById(roomId));
         model.addAttribute("user",user);
         return "room2";
