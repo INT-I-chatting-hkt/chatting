@@ -122,22 +122,26 @@
     <div th:replace="~{fragment/fragment-parts :: footerCopy}"></div>
 
     <script type="text/javascript" th:inline="javascript">
+      let questionId = [[${question.id}]];
+
       $('.star').on('click', function(event){
         // star 클릭 시 채택되는 함수
 
-        let userid = this.dataset.id
-        console.log(userid);
-        window.alert(userid);
+        let answerId = this.dataset.id
 
-        fetch(window.location.href, {
+        fetch('/qna/adopt', {
           method: 'post',
-          body: userid,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            answerId: answerId,
+            questionId: questionId,
+          })
         })
-                .then(res => res.json())
-                .then(res => {
-                  if(res.success){
-                    alert("저장 완료");
-                  }
+                .then(response => {
+                  window.alert("채택되었습니다.");
+                  // window.location.href=window.location;
                 })
       });
 
@@ -146,9 +150,8 @@
 
         let form = document.getElementById('answer_message');
         let context = form.value; // form에 입력된 text
-        let questionId = [[${question.id}]];
 
-        if (context == ''){
+        if (context == ''){ // form이 비어있는 경우 경고문 출력
           window.alert("메세지를 입력해주세요!");
         }
         else{
@@ -165,6 +168,7 @@
                   .then(response => {
                     form.value = null;
                     window.alert("답변이 등록되었습니다.");
+                    window.location.href=window.location;
                   })
 
         }
