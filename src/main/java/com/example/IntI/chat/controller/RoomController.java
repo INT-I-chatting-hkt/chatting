@@ -28,16 +28,14 @@ public class RoomController {
     private final UserService userService;
 
     //채팅방 목록 조회
-    @GetMapping(value = "/rooms")
+    @GetMapping(value = "/room/join")
     public String rooms(Model model){
-        log.info("# All Chat Rooms");
-        model.addAttribute("list",chattingRoomRepository.findAllRooms());
         model.addAttribute("chatRoomDto",new ChatRoomDto());
         return "createRoom";
     }
 
     //채팅방 개설
-    @PostMapping(value = "/room")
+    @PostMapping(value = "/room/join")
     public String create(@ModelAttribute ChatRoomDto chatRoomDto,
                          RedirectAttributes rttr){
         ChattingRoom chattingRoom = ChattingRoom.create(chatRoomDto.getName(),chatRoomDto.getDescription(),
@@ -45,7 +43,7 @@ public class RoomController {
         log.info("# Create Chat Room , name: " + chattingRoom.getName());
         chattingRoomService.join(chattingRoom);
         rttr.addFlashAttribute("roomName", chattingRoom.getName());
-        return "redirect:/chat/rooms";
+        return "redirect:/chat";
     }
     //채팅방 조회
     @GetMapping("/room")
