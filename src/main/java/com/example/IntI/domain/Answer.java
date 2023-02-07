@@ -14,8 +14,6 @@ public class Answer {
     private Long id;
     private LocalDateTime createTime;
     private String context;
-    @Enumerated(value = EnumType.STRING)
-    private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
@@ -33,10 +31,5 @@ public class Answer {
         this.question = question;
         this.user = user;
         this.createTime = LocalDateTime.now();
-        this.status = Status.NOT_ADOPT;
-    }
-
-    public void updateStatus(Status status) {
-        this.status = status;
     }
 }

@@ -20,6 +20,9 @@ public class QnaService {
     public List<Question> getAllQuestions(Long roomId) {
         return qnaRepository.findAllQuestions(roomId);
     }
+    public List<Question> getAllQuestionsWithAdoptedAnswer(Long roomId){
+        return qnaRepository.findAllWithAdoptedAnswer(roomId);
+    }
 
     public Question getQuestion(Long questionId) {
         return qnaRepository.findQuestion(questionId);
@@ -33,8 +36,8 @@ public class QnaService {
         return qnaRepository.findAnswer(answerId);
     }
 
-    public List<Answer> getNotAdoptedAnswers(Long questionId) {
-        return qnaRepository.findNotAdoptedAnswers(questionId);
+    public List<Answer> getNotAdoptedAnswers(Long questionId,Long answerId) {
+        return qnaRepository.findNotAdoptedAnswers(questionId,answerId);
     }
 
     public Answer getAdoptAnswer(Long questionId) {
@@ -46,15 +49,10 @@ public class QnaService {
         return qnaRepository.writeAnswer(question, writer, context);
     }
 
-    public Answer adoptAnswer(Long answerId) {
-        Answer answer = getAnswer(answerId);
-        Question question = answer.getQuestion();
-
-        if(getAdoptAnswer(question.getId()) == null) {
-            qnaRepository.adopt(answer);
-            return answer;
-        }
-
-        return null;
+    public void adoptAnswer(Long answerId,Long questionId){
+        Question question = qnaRepository.findQuestion(questionId);
+        Answer answer = qnaRepository.findAnswer(answerId);
+        question.adopt(answer);
+        return;
     }
 }
