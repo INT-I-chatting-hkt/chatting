@@ -136,6 +136,9 @@
 
 <script th:inline="javascript">
 
+    const scrollObj = document.getElementById("chatting-room-container");
+    scrollObj.scrollTop = scrollObj.scrollHeight;
+
 
     let roomName = [[${room.name}]];
     let roomId = [[${room.id}]];
