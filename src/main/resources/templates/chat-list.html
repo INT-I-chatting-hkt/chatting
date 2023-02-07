@@ -51,7 +51,7 @@
             <div th:each="chat:${chatList}" class="room-info-container" style="padding: 15px;">
                 <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px; cursor: pointer;" th:onClick="|location.href='@{chat/room(roomId=${chat.id})}'|">
                     <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
-                        <img src="/images/chat-main-img.png">
+                        <img th:src="${chat.profileUrl}" src="/images/chat-main-img.png">
                     </div>
                     <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
                         <h4><span th:text="${chat.name}">채팅방 이름</span></h4>
