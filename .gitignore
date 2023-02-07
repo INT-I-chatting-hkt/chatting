@@ -39,3 +39,4 @@ out/
 *.properties
 **/application.properties
 .pem
+*.DS_Store
