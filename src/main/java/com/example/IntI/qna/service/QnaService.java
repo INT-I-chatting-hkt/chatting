@@ -38,7 +38,7 @@ public class QnaService {
         return qnaRepository.findAnswer(answerId);
     }
 
-    public List<Answer> getNotAdoptedAnswers(Long questionId,Long answerId) {
+    public List<Answer> getNotAdoptedAnswers(Long questionId, Long answerId) {
         return qnaRepository.findNotAdoptedAnswers(questionId,answerId);
     }
 

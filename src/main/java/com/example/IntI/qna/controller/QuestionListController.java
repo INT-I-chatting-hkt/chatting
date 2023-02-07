@@ -47,8 +47,8 @@ public class QuestionListController {
 
         Question question = qnaService.getQuestion(questionId);
         Answer adoptAnswer = question.getAdoptedAnswer();
-        Long adoptAnswerId = (adoptAnswer!=null ? adoptAnswer.getId() : null );
-        List<Answer> answers = qnaService.getNotAdoptedAnswers(question.getId(),adoptAnswerId);
+        Long adoptAnswerId = (adoptAnswer != null ? adoptAnswer.getId() : null );
+        List<Answer> answers = qnaService.getNotAdoptedAnswers(question.getId(), adoptAnswerId);
         
         model.addAttribute("question", question);
         model.addAttribute("answerList", answers);
@@ -57,18 +57,13 @@ public class QuestionListController {
         return "qna-detail";
     }
 
-    @PostMapping("/detail")
-    public Long qnaDetailPost(@RequestBody AdaptForm adaptForm) {
+    @ResponseBody
+    @PostMapping("/adopt")
+    public Long qnaDetailPost(@RequestBody AdoptForm adaptForm) {
         log.info("answerId={}", adaptForm.getAnswerId()); // 채택된 답변의 id
-        qnaService.adoptAnswer(adaptForm.getAnswerId(),adaptForm.getQuestionId()); // star를 클릭한 답변 채택
-        return adaptForm.getRoomId();
+        qnaService.adoptAnswer(adaptForm.getAnswerId(), adaptForm.getQuestionId()); // star를 클릭한 답변 채택
+        return adaptForm.getQuestionId();
     }
-    @Data
-    public static class AdaptForm{
-      private Long answerId;
-      private Long questionId;
-      private Long roomId;
-    };
 
     @ResponseBody
     @PostMapping("/answer")
@@ -79,6 +74,12 @@ public class QuestionListController {
         String userId = jwtTokenProvider.getValidateValue(token);
         return qnaService.createAnswer(userId,answerForm.getContext(),answerForm.getQuestionId());
     }
+
+    @Data
+    public static class AdoptForm{
+        private Long answerId;
+        private Long questionId;
+    };
 
     @Data
     public static class AnswerForm{
