@@ -1,111 +1,84 @@
 package com.example.IntI.qna.controller;
 
-import lombok.Data;
+import com.example.IntI.chat.domain.Question;
+import com.example.IntI.domain.Answer;
+import com.example.IntI.qna.domain.summaryQuestion;
+import com.example.IntI.qna.service.QnaService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
 @RequestMapping(value = "/qna")
+@RequiredArgsConstructor
 public class QuestionListController {
+    private final QnaService qnaService;
 
     @GetMapping
     public String qnaSummary(@RequestParam String roomId, Model model) {
-        int id = Integer.parseInt(roomId);
-        model.addAttribute("roomId", id);
-        log.info("roomId={}", id);
+        Long room = stringToLong(roomId);
 
-        Member question1 = new Member(1, null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
-        Member question2 = new Member(1, "", "도라미", "오전 12:03", "제대로 되는 건지 모르겠어요");
-        Member answer = new Member(2, null, "노진구", "오후 2:03", "답변인데용");
-        Qna qna1 = new Qna(1, 1, question1, answer);
-        Qna qna2 = new Qna(1, 1, question2, answer);
+        List<Question> questionList = qnaService.getAllQuestions(room); // 해당 채팅방의 모든 question을 get
 
-        List<Qna> questionData = new ArrayList<>();
-        questionData.add(qna1);
-        questionData.add(qna2);
+        List<summaryQuestion> summaryQuestionList = new ArrayList<>();
+        for(Question quest:questionList){
+            summaryQuestion summaryQuest = new summaryQuestion(quest, qnaService.getAdoptAnswer(quest.getId()));
+            summaryQuestionList.add(summaryQuest);
+        }
 
-        model.addAttribute("questionSummaryList", questionData);
-        log.info("questionId={}", id);
+        log.info("questionId={}", room);
+        log.info("summaryQuestions={}", summaryQuestionList);
+
+        model.addAttribute("QuestionList", summaryQuestionList);
 
         return "qna-summary";
     }
 
     @GetMapping("/detail")
     public String qnaDetailGet(@RequestParam String questionId, Model model) {
-        int id = Integer.parseInt(questionId);
-        log.info("questionId={}", id);
 
+        Long questId = stringToLong(questionId);
+        log.info("questionId={}", questId);
 
-        Member question = new Member(1, null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
-        Member answer1 = new Member(1, null, "노진구", "오후 3:46", "답변인데용");
-        Member answer2 = new Member(2, "", "도라미", "오후 2:03", "잘 출력되는지 확인 중입니다.");
-
-        List<Member> answerData = new ArrayList<>();
-        answerData.add(answer1);
-        answerData.add(answer2);
-
+        Question question = qnaService.getQuestion(questId);
+        List<Answer> answerData = qnaService.getNotAdoptedAnswers(questId);
+        Answer adoptAnswer = qnaService.getAdoptAnswer(questId);
+        
         model.addAttribute("question", question);
         model.addAttribute("answerList", answerData);
-        log.info("questionId={}", id);
+        model.addAttribute("answerAdopt", adoptAnswer);
 
         return "qna-detail";
     }
 
     @PostMapping("/detail")
-    public String qnaDetailPost(@RequestParam String questionId, @RequestBody int answerId) {
-        int id = Integer.parseInt(questionId);
-        log.info("questionId={}", id);
+    public String qnaDetailPost(@RequestParam String questionId, @RequestBody String answerId, Model model) {
 
-        Member question = new Member(1, null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
-        Member answer1 = new Member(1, null, "노진구", "오후 3:46", "답변인데용");
-        Member answer2 = new Member(2, "", "도라미", "오후 2:03", "잘 출력되는지 확인 중입니다.");
+        Long questId = stringToLong(questionId);
+        Long ansId = stringToLong(answerId);
+        log.info("answerId={}", ansId); // 채택된 답변의 id 
+        log.info("questionId={}", questId);
 
-        List<Member> answerData = new ArrayList<>();
-        answerData.add(answer1);
-        answerData.add(answer2);
+        qnaService.adoptAnswer(ansId); // star를 클릭한 답변 채택
+        Question question = qnaService.getQuestion(questId);
+        List<Answer> answerData = qnaService.getNotAdoptedAnswers(questId);
+        Answer adoptAnswer = qnaService.getAdoptAnswer(questId);
 
-        log.info("questionId={}", id);
+        model.addAttribute("question", question);
+        model.addAttribute("answerList", answerData);
+        model.addAttribute("answerAdopt", adoptAnswer);
 
-        return "qna-detail";
+        return "redirect:/qna-detail";
     }
 
-    @Data
-    static class Qna {
-        private int questid;
-        private int roomid;
-        private Member question;
-        private Member answer;
-
-        public Qna(int questid, int roomid, Member question, Member answer) {
-            this.questid = questid;
-            this.roomid = roomid;
-            this.question = question;
-            this.answer = answer;
-        }
-    }
-
-    @Data
-    static class Member {
-        private int id;
-        private String profile;
-        private String name;
-        private String time;
-        private String context;
-
-        public Member(int id, String profile, String name, String time, String context) {
-            this.id = id;
-            this.profile = profile;
-            this.name = name;
-            this.time = time;
-            this.context = context;
-        }
+    public Long stringToLong(String id){
+        Integer integerId = Integer.parseInt(id);
+        return integerId.longValue();
     }
 }
