@@ -17,8 +17,8 @@ public class QnaService {
 
     private final QnaRepository qnaRepository;
 
-    public List<Question> getAllQuestions() {
-        return qnaRepository.findAllQuestions();
+    public List<Question> getAllQuestions(Long roomId) {
+        return qnaRepository.findAllQuestions(roomId);
     }
 
     public Question getQuestion(Long questionId) {

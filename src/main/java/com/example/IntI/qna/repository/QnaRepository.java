@@ -17,9 +17,9 @@ public class QnaRepository {
 
     private final EntityManager em;
 
-    public List<Question> findAllQuestions() {
-        return em.createQuery("select q from Question q", Question.class)
-                .getResultList();
+    public List<Question> findAllQuestions(Long roomId) {
+        return em.createQuery("select q from Question q where q.chattingRoom.id=:roomId", Question.class)
+                .setParameter("roomId", roomId).getResultList();
     }
 
     public Question findQuestion(Long questionId) {
@@ -35,13 +35,13 @@ public class QnaRepository {
     }
 
     public List<Answer> findNotAdoptedAnswers(Long questionId) {
-        return em.createQuery("select a from Answer a where a.question.id=:questionId and a.status=:aaa", Answer.class)
-                .setParameter("questionId", questionId).setParameter("aaa", NOT_ADOPT).getResultList();
+        return em.createQuery("select a from Answer a where a.question.id=:questionId and a.status=:status", Answer.class)
+                .setParameter("questionId", questionId).setParameter("status", NOT_ADOPT).getResultList();
     }
 
     public Answer findAdoptAnswer(Long questionId) {
-        List<Answer> answerList = em.createQuery("select a from Answer a where a.question.id=:questionId and a.status=:aaa", Answer.class)
-                .setParameter("questionId", questionId).setParameter("aaa", ADOPT).getResultList();
+        List<Answer> answerList = em.createQuery("select a from Answer a where a.question.id=:questionId and a.status=:status", Answer.class)
+                .setParameter("questionId", questionId).setParameter("status", ADOPT).getResultList();
 
         if(answerList.isEmpty()) {
             return null;
