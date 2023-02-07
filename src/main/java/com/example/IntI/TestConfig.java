@@ -29,8 +29,6 @@ public class TestConfig {
         private final EntityManager em;
 
         public void dbInit1(){
-            String nickname = "johan";
-            em.persist(User.createUser(nickname));
         }
     };
 

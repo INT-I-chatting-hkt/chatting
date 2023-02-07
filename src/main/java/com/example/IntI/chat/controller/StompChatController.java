@@ -5,9 +5,10 @@ import com.example.IntI.chat.domain.MessageType;
 import com.example.IntI.chat.domain.Question;
 import com.example.IntI.chat.service.ChattingRoomService;
 import com.example.IntI.chat.service.QuestionService;
-import com.example.IntI.chat.service.UserService;
+import com.example.IntI.service.UserService;
 import com.example.IntI.domain.ChattingRoom;
 import com.example.IntI.domain.User;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -34,9 +35,9 @@ public class StompChatController {
     }
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto message){
-        if(message.getMessageType().equals(MessageType.Question)){
+        if(message.getMessageType()=="Question"){
             ChattingRoom chattingRoom = chattingRoomService.findOne(message.getRoomId());
-            User user = userService.findOne(message.getUserId());
+            User user = userService.findOneByUserId(message.getUserId());
             questionService.join(Question.create(message.getMessage(),user,chattingRoom));
         }
         log.info("# user id : "+message.getUserId());
