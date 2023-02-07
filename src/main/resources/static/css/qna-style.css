@@ -87,3 +87,9 @@ body {
   border-radius: 2vh; /* margin: 3px; */
   padding: 5px;
 }
+
+.star{
+  margin: auto;
+  height: 17px;
+  width: 17px;
+}

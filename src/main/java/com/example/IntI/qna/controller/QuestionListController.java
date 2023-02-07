@@ -4,9 +4,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,9 +22,9 @@ public class QuestionListController {
         model.addAttribute("roomId", id);
         log.info("roomId={}", id);
 
-        Member question1 = new Member(null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
-        Member question2 = new Member("", "도라미", "오전 12:03", "제대로 되는 건지 모르겠어요");
-        Member answer = new Member(null, "노진구", "오후 2:03", "답변인데용");
+        Member question1 = new Member(1, null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
+        Member question2 = new Member(1, "", "도라미", "오전 12:03", "제대로 되는 건지 모르겠어요");
+        Member answer = new Member(2, null, "노진구", "오후 2:03", "답변인데용");
         Qna qna1 = new Qna(1, 1, question1, answer);
         Qna qna2 = new Qna(1, 1, question2, answer);
 
@@ -41,14 +39,14 @@ public class QuestionListController {
     }
 
     @GetMapping("/detail")
-    public String qnaDetail(@RequestParam String questionId, Model model) {
+    public String qnaDetailGet(@RequestParam String questionId, Model model) {
         int id = Integer.parseInt(questionId);
         log.info("questionId={}", id);
 
 
-        Member question = new Member(null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
-        Member answer1 = new Member(null, "노진구", "오후 3:46", "답변인데용");
-        Member answer2 = new Member("", "도라미", "오후 2:03", "잘 출력되는지 확인 중입니다.");
+        Member question = new Member(1, null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
+        Member answer1 = new Member(1, null, "노진구", "오후 3:46", "답변인데용");
+        Member answer2 = new Member(2, "", "도라미", "오후 2:03", "잘 출력되는지 확인 중입니다.");
 
         List<Member> answerData = new ArrayList<>();
         answerData.add(answer1);
@@ -56,6 +54,24 @@ public class QuestionListController {
 
         model.addAttribute("question", question);
         model.addAttribute("answerList", answerData);
+        log.info("questionId={}", id);
+
+        return "qna-detail";
+    }
+
+    @PostMapping("/detail")
+    public String qnaDetailPost(@RequestParam String questionId, @RequestBody int answerId) {
+        int id = Integer.parseInt(questionId);
+        log.info("questionId={}", id);
+
+        Member question = new Member(1, null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
+        Member answer1 = new Member(1, null, "노진구", "오후 3:46", "답변인데용");
+        Member answer2 = new Member(2, "", "도라미", "오후 2:03", "잘 출력되는지 확인 중입니다.");
+
+        List<Member> answerData = new ArrayList<>();
+        answerData.add(answer1);
+        answerData.add(answer2);
+
         log.info("questionId={}", id);
 
         return "qna-detail";
@@ -78,12 +94,14 @@ public class QuestionListController {
 
     @Data
     static class Member {
+        private int id;
         private String profile;
         private String name;
         private String time;
         private String context;
 
-        public Member(String profile, String name, String time, String context) {
+        public Member(int id, String profile, String name, String time, String context) {
+            this.id = id;
             this.profile = profile;
             this.name = name;
             this.time = time;

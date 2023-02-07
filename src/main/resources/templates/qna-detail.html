@@ -99,6 +99,7 @@
                       <h3 class="user_name"><span th:text="${answer.name}">사용자</span></h3>
                       <h6 class="date"><span th:text="${answer.time}">시간</span></h6>
                     </div>
+                    <img class="star" src="/images/star.png" style="cursor: pointer;" alt="star" th:data-id="${answer.id}"/>
                   </div>
                   <p>
                     <span th:text="${answer.context}">질문 내용</span>
@@ -112,5 +113,15 @@
     </div>
 
     <div th:replace="~{/fragment/fragment-parts :: footerCopy}"></div>
+
+    <script type="text/javascript" th:inline="javascript">
+      $('.star').on('click', function(event){
+        // star 클릭 시 채택되는 함수
+
+        let userid = this.dataset.id
+        console.log(userid);
+        window.alert(userid);
+      });
+    </script>
   </body>
 </html>
