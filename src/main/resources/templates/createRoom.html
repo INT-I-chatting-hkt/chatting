@@ -59,7 +59,7 @@
   </div>
 
   <div class="container" style="width: 40%; background-color: #c9e4ca; margin: auto; overflow: scroll; height: 75vh;">
-    <form id="create-form"style="width: 70%; margin: auto; padding-top: 12vh;" th:action="@{/chat/room}"
+    <form id="create-form"style="width: 70%; margin: auto; padding-top: 12vh;" th:action="@{/chat/rooms}"
     th:object="${chatRoomDto}" method="post">
       <input type="text" th:field="*{name}" class="account" placeholder="ID" />
       <input type="password" th:field="*{description}"class="account" placeholder="Password" style="margin-bottom: 10px" />
