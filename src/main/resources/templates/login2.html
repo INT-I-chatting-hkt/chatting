@@ -59,6 +59,8 @@
      style="padding: 15px; width: 100%; max-width: 500px; background-color: #c9e4ca; margin: auto; height: 400px; margin-top: 50px;">
   <div style="text-align: center; color: #3b6064">
     <h1>로그인</h1>
+    <h3 th:if="${loginStatus.getStatus() == ERROR}" style="color: red">아이디 & 비밀번호 오류</h3>
+    <div th:></div>
   </div>
   <form style="width: 70%; margin: auto" action="/login" th:object="${loginForm}" method="post">
     <input type="text" th:field="*{userId}"
@@ -73,5 +75,10 @@
   </form>
 </div>
 </body>
+
+<script th:inline="javascript">
+  let stat =[[${loginStatus}]];
+  console.log(stat)
+</script>
 
 </html>

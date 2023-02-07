@@ -6,6 +6,7 @@ import com.example.IntI.login.domain.LoginForm;
 import com.example.IntI.security.JwtTokenProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ public class LoginController {
     @GetMapping("/login")
     public String loginForm(Model model){
         model.addAttribute("loginForm",new LoginForm());
+        LoginStatus loginStatus = new LoginStatus();
+        loginStatus.setStatus(Status.NORMAL);
+        model.addAttribute("loginStatus",loginStatus);
         return "login2";
     }
     @GetMapping("/")
@@ -29,15 +33,25 @@ public class LoginController {
         return "redirect:/login";
     }
     @PostMapping("/login")
-    public String login(@ModelAttribute(value = "loginForm")LoginForm loginForm, HttpServletResponse response){
+    public String login(@ModelAttribute(value = "loginForm")LoginForm loginForm, HttpServletResponse response,Model model){
         User user = userService.findOneByUserId(loginForm.getUserId());
+        LoginStatus loginStatus =  new LoginStatus();
+        model.addAttribute("loginStatus",loginStatus);
         if(user.validate(loginForm.getUserId(),loginForm.getUserPassword())){
             String token = jwtTokenProvider.createAccessToken(user.getUserId());
             Cookie cookie = new Cookie("inti-token", token);
             cookie.setMaxAge(300);
             cookie.setPath("/");
             response.addCookie(cookie);
+            loginStatus.setStatus(Status.NORMAL);
+        }else{
+            loginStatus.setStatus(Status.ERROR);
+            return "redirect:/login";
         }
         return "redirect:/chat";
     }
+    @Data
+    public static class LoginStatus{
+        private Status status;
+    };
 }
