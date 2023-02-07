@@ -52,15 +52,15 @@
           <div class="question" style="cursor: initial">
             <div class="question_box">
               <div class="user_info">
-                <div th:if="${question.profile == null}">
+                <div th:if="${question.user.profileUrl == null}">
                   <img class="profile" src="/images/user-default.png" alt="dora"/>
                 </div>
-                <div th:unless="${question.profile == null}">
+                <div th:unless="${question.user.profileUrl == null}">
                   <img class="profile" src="/images/KDY-dora.jpg" alt="dora"/>
                 </div>
                 <div class="question_info">
-                  <h3 class="user_name"><span th:text="${question.name}">사용자</span></h3>
-                  <h6 class="date"><span th:text="${question.time}">시간</span></h6>
+                  <h3 class="user_name"><span th:text="${question.user.nickname}">사용자</span></h3>
+                  <h6 class="date"><span th:text="${question.createTime}">시간</span></h6>
                 </div>
               </div>
               <p>
@@ -89,15 +89,15 @@
 
                 <div th:each="answer: ${answerList}" style="margin: 20px 0" class="answer_message">
                   <div class="user_info">
-                    <div th:if="${answer.profile == null}">
+                    <div th:if="${answer.user.nickname == null}">
                       <img class="profile" src="/images/user-default.png" alt="jingu"/>
                     </div>
-                    <div th:unless="${answer.profile == null}">
+                    <div th:unless="${answer.user.profileUrl == null}">
                       <img class="profile" src="/images/KDY-jingu.jpeg" alt="jingu"/>
                     </div>
                     <div class="question_info">
-                      <h3 class="user_name"><span th:text="${answer.name}">사용자</span></h3>
-                      <h6 class="date"><span th:text="${answer.time}">시간</span></h6>
+                      <h3 class="user_name"><span th:text="${answer.user.nickname}">사용자</span></h3>
+                      <h6 class="date"><span th:text="${answer.createTime}">시간</span></h6>
                     </div>
                     <img class="star" src="/images/star.png" style="cursor: pointer;" alt="star" th:data-id="${answer.id}"/>
                   </div>
@@ -121,6 +121,17 @@
         let userid = this.dataset.id
         console.log(userid);
         window.alert(userid);
+
+        fetch(window.location.href, {
+          method: 'post',
+          body: userid,
+        })
+                .then(res => res.json())
+                .then(res => {
+                  if(res.success){
+                    alert("저장 완료");
+                  }
+                })
       });
     </script>
   </body>
