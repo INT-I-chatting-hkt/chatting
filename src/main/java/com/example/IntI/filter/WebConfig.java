@@ -21,6 +21,8 @@ public class WebConfig {
         return filterFilterRegistrationBean;
     }
 
+
+    /*
     @Bean
     public FilterRegistrationBean loginCheckFilter(){
         FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
@@ -29,4 +31,6 @@ public class WebConfig {
         filterFilterRegistrationBean.addUrlPatterns("/*");
         return filterFilterRegistrationBean;
     }
+
+     */
 }
