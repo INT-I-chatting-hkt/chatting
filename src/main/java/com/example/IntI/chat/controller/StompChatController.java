@@ -46,7 +46,7 @@ public class StompChatController {
         }
         chatLogService
                 .insert(new ChatLog(message.getRoomId(),message.getUserId()
-                        ,message.getNickName(), message.getMessage()));
+                        ,message.getNickName(), message.getMessage(), message.getProfileURL()));
         log.info("# user id : "+message.getUserId());
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }

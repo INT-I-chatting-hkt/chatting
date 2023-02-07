@@ -77,6 +77,39 @@
         <div id="chatting-room-container" class="chatting-room-container" style="height: 70vh; overflow: scroll;">
 
             <ul id="chatting-container-ul">
+
+                <li th:each="chatLog: ${chatLogs} "class="chatting-container">
+                    <div th:if="${chatLog.userId != user.userId}"style="display: flex; height: max-content;">
+                        <div style="background-color: #C9E4CA; width: 15%;">
+                            <div class="user-image" style="width: 45px; margin: auto;">
+                                <img th:src="${chatLog.profileURL}" style="border-radius: 50%;">
+                            </div>
+                        </div>
+                        <div style="max-width: 70%; display: inline;">
+                            <div th:text="${chatLog.nickName}" style="background-color: #C9E4CA; font-size: 17px; font-weight: 800; color: #3B6064;">
+                                사용자1
+                            </div>
+                            <div style="background-color: #3B6064; padding: 9px; border-radius: 15px 15px 15px 0px; display: flex">
+                                <div th:text="${chatLog.message}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${chatLog.userId == user.userId}"style="display: flex; height: max-content; justify-content: end;">
+                        <div style="max-width: 70%; display: inline;">
+                            <div style="background-color: #87BBA2; padding: 9px; border-radius: 15px 15px 0px 15px; display: flex">
+                                <div th:text="${chatLog.message}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color: #C9E4CA; width: 15%; height: 55px;">
+                            <div class="user-image" style="width: 45px; margin: auto;">
+                                <img th:src="${chatLog.profileURL}" style="border-radius: 50%;">
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="chatting-input-container" style="height: 10vh; background-color: #3B6064; display: flex;
@@ -104,16 +137,17 @@
 <script th:inline="javascript">
 
 
-    var roomName = [[${room.name}]];
-    var roomId = [[${room.id}]];
-    var nickName = [[${user.nickname}]];
-    var userId = [[${user.userId}]];
+    let roomName = [[${room.name}]];
+    let roomId = [[${room.id}]];
+    let nickName = [[${user.nickname}]];
+    let userId = [[${user.userId}]];
+    let userProfileURL = [[${user.profileUrl}]];
 
     function sendMessage() {
         const message = document.getElementById("message").value;
         //webSocket.send(message);
     }
-    var insertmsgToString = function (msg) {
+    var insertmsgToString = function (msg,profileURL) {
         let firstString = '<div style="display: flex; height: max-content; justify-content: end;">\
                             <div style="max-width: 70%; display: inline;">\
                                 <div style="background-color: #87BBA2; padding: 9px; border-radius: 15px 15px 0px 15px; display: flex">\
@@ -123,47 +157,48 @@
                             </div>\
                             <div style="background-color: #C9E4CA; width: 15%; height: 55px;">\
                                 <div class="user-image" style="width: 45px; margin: auto;">\
-                                    <img src="/images/KDY-dora.jpg" style="border-radius: 50%;">\
+                                    <img src="';
+
+        let thirdString = '" style="border-radius: 50%;">\
                                 </div>\
                             </div>\
                         </div>';
-        return firstString + msg + secondString;
+        return firstString + msg + secondString + profileURL + thirdString;
     }
-    var insertmsgLeftToString = function(msg,user){
-        let firstString = '<li class="chatting-container">\
-                        <div style="display: flex; height: max-content;">\
-                            <div style="background-color: #C9E4CA; width: 15%; height: 90px;">\
+    var insertmsgLeftToString = function(msg,user,profileURL){
+        let firstString = '<div style="display: flex; height: max-content;">\
+                            <div style="background-color: #C9E4CA; width: 15%;">\
                                 <div class="user-image" style="width: 45px; margin: auto;">\
-                                    <img src="/images/KDY-jingu.jpeg" style="border-radius: 50%;">\
+                                    <img src="'
+        let secondString = '" style="border-radius: 50%;">\
                                 </div>\
                             </div>\
                             <div style="max-width: 70%; display: inline;">\
                                 <div\
                                     style="background-color: #C9E4CA; font-size: 17px; font-weight: 800; color: #3B6064;">'
-        let secondString='</div>\
+        let thirdString='</div>\
                                 <div\
                                     style="background-color: #3B6064; padding: 9px; border-radius: 15px 15px 15px 0px; display: flex">\
                                     <div>';
-        let thirdString =  '</div>\
+        let fourthString =  '</div>\
                                 </div>\
                             </div>\
-                        </div>\
-                    </li>';
-        return firstString+user+secondString+msg+thirdString;
+                        </div>';
+        return firstString+profileURL+secondString+user+thirdString+msg+fourthString;
     }
-    var stringToHTML = function (msg,flag) {
+    var stringToHTML = function (msg,flag,profileURL) {
         var dom = document.createElement('li');
         dom.className = 'chatting-container';
         if(flag==0) {
-            dom.innerHTML = insertmsgLeftToString(msg,nickName);
+            dom.innerHTML = insertmsgLeftToString(msg,nickName,profileURL);
         }else{
-            dom.innerHTML = insertmsgToString(msg)
+            dom.innerHTML = insertmsgToString(msg,profileURL);
         }
         return dom;
     };
-    function receiveChat(flag,message){
+    function receiveChat(flag,message,profileURL){
         const ulNode = document.getElementById("chatting-container-ul");
-        const liNode = stringToHTML(message,flag);
+        const liNode = stringToHTML(message,flag,profileURL);
         ulNode.appendChild(liNode);
         const scrollObj = document.getElementById("chatting-room-container");
         scrollObj.scrollTop = scrollObj.scrollHeight;
@@ -186,9 +221,9 @@
 
         console.log(roomName + ", " + roomId + ", " + nickName);
 
-        var sockJs = new SockJS("/stomp/chat");
+        let sockJs = new SockJS("/stomp/chat");
         //1. SockJS를 내부에 들고있는 stomp를 내어줌
-        var stomp = Stomp.over(sockJs);
+        let stomp = Stomp.over(sockJs);
 
         //2. connection이 맺어지면 실행
         stomp.connect({}, function (){
@@ -197,16 +232,17 @@
             //4. subscribe(path, callback)으로 메세지를 받을 수 있음
             stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
                 console.log("received message!!!!!!!!!!!!");
-                var content = JSON.parse(chat.body);
-                var writer = content.nickName;
-                var message = content.message;
-                var str = '';
+                let content = JSON.parse(chat.body);
+                let writer = content.nickName;
+                let message = content.message;
+                let profileURL = content.profileURL;
+                let str = '';
                 console.log("message body : "+content);
                 if(writer === nickName){
-                    receiveChat(1,message)
+                    receiveChat(1,message,profileURL);
                 }
                 else{
-                    receiveChat(2,message)
+                    receiveChat(0,message,profileURL);
                 }
             });
             //3. send(path, header, message)로 메세지를 보낼 수 있음
@@ -222,7 +258,7 @@
                 messageType = 'Question';
             }
             stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, userId: userId, nickName: nickName,
-                message: message, messageType: messageType}));
+                message: message, messageType: messageType,profileURL:userProfileURL}));
         });
     });
 </script>
