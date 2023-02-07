@@ -9,4 +9,5 @@ public class ChatMessageDto {
     private String nickName;
     private String message;
     private String messageType;
+    private String profileURL;
 }
