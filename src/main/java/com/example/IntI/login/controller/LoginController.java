@@ -38,6 +38,6 @@ public class LoginController {
             cookie.setPath("/");
             response.addCookie(cookie);
         }
-        return "redirect:chat";
+        return "redirect:/chat";
     }
 }

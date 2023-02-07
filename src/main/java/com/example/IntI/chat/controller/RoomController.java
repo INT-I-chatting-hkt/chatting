@@ -43,7 +43,7 @@ public class RoomController {
         log.info("# Create Chat Room , name: " + chattingRoom.getName());
         chattingRoomService.join(chattingRoom);
         rttr.addFlashAttribute("roomName", chattingRoom.getName());
-        return "redirect:chat";
+        return "redirect:/chat";
     }
     //채팅방 조회
     @GetMapping("/room")

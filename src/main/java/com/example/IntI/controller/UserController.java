@@ -19,7 +19,7 @@ public class UserController {
     public String join(@ModelAttribute(value = "userCreateForm") UserCreateForm userCreateForm){
         userService.join(User.createUser(userCreateForm.getUserId()
                 ,userCreateForm.getUserPassword(),userCreateForm.getNickName()));
-        return "redirect:login";
+        return "redirect:/login";
     }
 
     @GetMapping("/join")
