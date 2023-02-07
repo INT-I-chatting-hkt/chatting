@@ -22,7 +22,7 @@ public class LoginController {
     @GetMapping("/login")
     public String loginForm(Model model){
         model.addAttribute("loginForm",new LoginForm());
-        return "login";
+        return "login2";
     }
     @PostMapping("/login")
     public String login(@ModelAttribute(value = "loginForm")LoginForm loginForm, HttpServletResponse response){
@@ -34,6 +34,6 @@ public class LoginController {
             cookie.setPath("/");
             response.addCookie(cookie);
         }
-        return "redirect:chat/rooms";
+        return "redirect:chat";
     }
 }

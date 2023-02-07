@@ -60,16 +60,18 @@
   <div style="text-align: center; color: #3b6064">
     <h1>회원가입</h1>
   </div>
-  <div style="width: 70%; margin: auto">
-    <input type="text" class="account" placeholder="ID" />
-    <input type="password" class="account" placeholder="Password" style="margin-bottom: 10px" />
-    <input type="nickname" class="account" placeholder="Nickname" style="margin-bottom: 10px" />
+  <form style="width: 70%; margin: auto" action="/join" th:object="${userCreateForm}" method="post">
+    <input type="text" th:field="*{userId}"class="account" placeholder="ID" />
+    <input type="password" th:field="*{userPassword}"
+           class="account" placeholder="Password" style="margin-bottom: 10px" />
+    <input type="nickname" th:field="*{nickName}"
+           class="account" placeholder="Nickname" style="margin-bottom: 10px" />
     <div style="text-align: end">
-      <a href="./login2.html" style="font-size: 15px; color: #3b6064">로그인</a>
+      <a href="/login" style="font-size: 15px; color: #3b6064">로그인</a>
       <button
               style="background-color: #3b6064; width: 100%; border-radius: 5px; border: none; margin-top: 40px; padding: 15px 0px">회원가입</button>
     </div>
-  </div>
+  </form>
 </div>
 </body>
 
