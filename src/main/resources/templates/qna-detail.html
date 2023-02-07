@@ -56,11 +56,11 @@
                   <img class="profile" src="/images/user-default.png" alt="dora"/>
                 </div>
                 <div th:unless="${questUser.profileUrl == null}">
-                  <img class="profile" src="/images/KDY-dora.jpg" alt="dora"/>
+                  <img class="profile" th:src="${questUser.profileUrl}" src="/images/KDY-dora.jpg" alt="dora"/>
                 </div>
                 <div class="question_info">
                   <h3 class="user_name"><span th:text="${questUser.nickname}">사용자</span></h3>
-                  <h6 class="date"><span th:text="${question.createTime}">시간</span></h6>
+                  <h6 class="date"><span th:text="${#temporals.format(question.createTime,'yy-MM-dd a hh:mm')}">시간</span></h6>
                 </div>
               </div>
               <p>
@@ -74,11 +74,11 @@
                       <img class="profile" src="/images/user-default.png" alt="jingu"/>
                     </div>
                     <div th:unless="${answerAdopt.user.profileUrl == null}">
-                      <img class="profile" src="/images/KDY-jingu.jpeg" alt="jingu"/>
+                      <img class="profile" th:src="${answerAdopt.user.profileUrl}" src="/images/KDY-jingu.jpeg" alt="jingu"/>
                     </div>
                     <div class="question_info">
                       <h3 class="user_name"><span th:text="${answerAdopt.user.nickname}">사용자</span></h3>
-                      <h6 class="date"><span th:text="${answerAdopt.createTime}">시간</span></h6>
+                      <h6 class="date"><span th:text="${#temporals.format(answerAdopt.createTime,'yy-MM-dd a hh:mm')}">시간</span></h6>
                     </div>
                     <img class="star" src="/images/star.png" style="cursor: pointer;" alt="star" th:data-id="${answerAdopt.id}"/>
                   </div>
@@ -93,11 +93,11 @@
                       <img class="profile" src="/images/user-default.png" alt="jingu"/>
                     </div>
                     <div th:unless="${answer.user.profileUrl == null}">
-                      <img class="profile" src="/images/KDY-jingu.jpeg" alt="jingu"/>
+                      <img class="profile" th:src="${answer.user.profileUrl}" src="/images/KDY-jingu.jpeg" alt="jingu"/>
                     </div>
                     <div class="question_info">
                       <h3 class="user_name"><span th:text="${answer.user.nickname}">사용자</span></h3>
-                      <h6 class="date"><span th:text="${answer.createTime}">시간</span></h6>
+                      <h6 class="date"><span th:text="${#temporals.format(answer.createTime,'yy-MM-dd a hh:mm')}">시간</span></h6>
                     </div>
                     <img class="star" src="/images/star.png" style="cursor: pointer;" alt="star" th:data-id="${answer.id}"/>
                   </div>
