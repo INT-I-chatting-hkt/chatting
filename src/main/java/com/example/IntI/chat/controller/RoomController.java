@@ -35,7 +35,7 @@ public class RoomController {
     }
 
     //채팅방 개설
-    @PostMapping(value = "/room")
+    @PostMapping(value = "/room/join")
     public String create(@ModelAttribute ChatRoomDto chatRoomDto,
                          RedirectAttributes rttr){
         ChattingRoom chattingRoom = ChattingRoom.create(chatRoomDto.getName(),chatRoomDto.getDescription(),
