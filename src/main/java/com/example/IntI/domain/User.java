@@ -1,11 +1,9 @@
 package com.example.IntI.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +17,9 @@ public class User {
 
     private String userId;
     private String userPassword;
+
+    @OneToMany
+    private List<Answer> answer;
 
     protected User(String userId,String userPassword,String nickname){
         this.userId=userId;
