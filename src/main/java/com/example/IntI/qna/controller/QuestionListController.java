@@ -1,6 +1,7 @@
 package com.example.IntI.qna.controller;
 
 import com.example.IntI.chat.domain.Question;
+import com.example.IntI.chat.service.ChattingRoomService;
 import com.example.IntI.domain.Answer;
 import com.example.IntI.domain.User;
 import com.example.IntI.qna.domain.summaryQuestionDto;
@@ -26,6 +27,8 @@ public class QuestionListController {
     private final QnaService qnaService;
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final ChattingRoomService chattingRoomService;
+
     @GetMapping
     public String qnaSummary(@RequestParam Long roomId, Model model) {
 
@@ -39,6 +42,7 @@ public class QuestionListController {
         log.info("summaryQuestions={}", summaryQuestionList);
 
         model.addAttribute("QuestionList", summaryQuestionList);
+        model.addAttribute("roomName",chattingRoomService.findOne(roomId).getName());
 
         return "qna-summary";
     }
