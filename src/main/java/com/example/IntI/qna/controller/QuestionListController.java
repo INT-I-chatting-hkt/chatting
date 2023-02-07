@@ -24,19 +24,18 @@ public class QuestionListController {
         model.addAttribute("roomId", id);
         log.info("roomId={}", id);
 
-        Qna qnaData1 = new Qna("도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
-        Qna qnaData2 = new Qna("노진구", "오후 2:03", "답변인데용");
+        Member question1 = new Member(null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
+        Member question2 = new Member("", "도라미", "오전 12:03", "제대로 되는 건지 모르겠어요");
+        Member answer = new Member(null, "노진구", "오후 2:03", "답변인데용");
+        Qna qna1 = new Qna(1, 1, question1, answer);
+        Qna qna2 = new Qna(1, 1, question2, answer);
 
-        List<Qna> data = new ArrayList<>();
-        data.add(qnaData1);
-        data.add(qnaData2);
+        List<Qna> questionData = new ArrayList<>();
+        questionData.add(qna1);
+        questionData.add(qna2);
 
-        model.addAttribute("user", qnaData1);
-        model.addAttribute("data", "Hi");
+        model.addAttribute("questionSummaryList", questionData);
         log.info("questionId={}", id);
-
-        System.out.println(data.get(0));
-        System.out.println(data.get(1));
 
         return "/qna-summary";
     }
@@ -46,19 +45,49 @@ public class QuestionListController {
         int id = Integer.parseInt(questionId);
         log.info("questionId={}", id);
 
+
+        Member question = new Member(null, "도라에몽", "오전 12:03", "이거 어떻게 하는 건가요?");
+        Member answer1 = new Member(null, "노진구", "오후 3:46", "답변인데용");
+        Member answer2 = new Member("", "도라미", "오후 2:03", "잘 출력되는지 확인 중입니다.");
+
+        List<Member> answerData = new ArrayList<>();
+        answerData.add(answer1);
+        answerData.add(answer2);
+
+        model.addAttribute("question", question);
+        model.addAttribute("answerList", answerData);
+        log.info("questionId={}", id);
+
         return "/qna-detail";
     }
 
     @Data
     static class Qna {
-        private String questname;
-        private String questtime;
-        private String questcontext;
+        private int questid;
+        private int roomid;
+        private Member question;
+        private Member answer;
 
-        public Qna(String questname, String questtime, String questcontext) {
-            this.questname = questname;
-            this.questtime = questtime;
-            this.questcontext = questcontext;
+        public Qna(int questid, int roomid, Member question, Member answer) {
+            this.questid = questid;
+            this.roomid = roomid;
+            this.question = question;
+            this.answer = answer;
+        }
+    }
+
+    @Data
+    static class Member {
+        private String profile;
+        private String name;
+        private String time;
+        private String context;
+
+        public Member(String profile, String name, String time, String context) {
+            this.profile = profile;
+            this.name = name;
+            this.time = time;
+            this.context = context;
         }
     }
 }

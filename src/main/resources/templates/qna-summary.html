@@ -41,82 +41,35 @@
       ">
   <div class="main_chat">
     <div class="question_list">
-      <div class="question" onClick="location.href='http://www.naver.com'">
+      <div th:each="questionSummary : ${questionSummaryList}" class="question" th:onClick="|location.href='@{qna/detail(questionId=${questionSummary.questid})}'|">
         <div class="question_box">
           <div class="user_info">
-            <img class="profile" src="/images/user-default.png" alt="dora"/>
+            <div th:if="${questionSummary.question.profile == null}">
+              <img class="profile" src="/images/user-default.png" alt="dora"/>
+            </div>
+            <div th:unless="${questionSummary.question.profile == null}">
+              <img class="profile" src="/images/KDY-dora.jpg" alt="dora"/>
+            </div>
             <div class="question_info">
-              <h3 class="user_name"><span th:text="${user.questname}">사용자</span></h3>
-              <h6 class="date"><span th:text="${user.questtime}">23-01-17 12:57PM</span></h6>
+              <h3 class="user_name"><span th:text="${questionSummary.question.name}">사용자</span></h3>
+              <h6 class="date"><span th:text="${questionSummary.question.time}">시간</span></h6>
             </div>
           </div>
 
           <p>
-                <span th:text="${user.questcontext}">하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-                하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-                하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네</span>
+                <span th:text="${questionSummary.question.context}">질문 내용</span>
           </p>
 
           <div class="answer">
             <div class="user_info">
               <img class="profile" src="/images/KDY-jingu.jpeg" alt="jingu" />
               <div class="question_info">
-                <h3 class="user_name">노진구</h3>
-                <h6 class="date">23-01-17 12:57PM</h6>
+                <h3 class="user_name"><span th:text="${questionSummary.answer.name}">사용자</span></h3>
+                <h6 class="date"><span th:text="${questionSummary.answer.time}">시간</span></h6>
               </div>
             </div>
             <p>
-              하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음
-              좋겠네 하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두
-              할수있음 좋겠네
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="question">
-        <div class="question_box">
-          <div class="user_info">
-            <img class="profile" src="/images/KDY-dora.jpg" alt="dora" />
-            <div class="question_info">
-              <h3 class="user_name">도라에몽</h3>
-              <h6 class="date">23-01-17 12:57PM</h6>
-            </div>
-          </div>
-          <p>
-            하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-            하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-            하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-          </p>
-        </div>
-      </div>
-      <div class="question">
-        <div class="question_box">
-          <div class="user_info">
-            <img class="profile" src="/images/KDY-dora.jpg" alt="dora" />
-            <div class="question_info">
-              <h3 class="user_name">도라에몽</h3>
-              <h6 class="date">23-01-17 12:57PM</h6>
-            </div>
-          </div>
-
-          <p>
-            하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-            하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-            하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음 좋겠네
-          </p>
-
-          <div class="answer">
-            <div class="user_info">
-              <img class="profile" src="/images/KDY-jingu.jpeg" alt="jingu" />
-              <div class="question_info">
-                <h3 class="user_name">노진구</h3>
-                <h6 class="date">23-01-17 12:57PM</h6>
-              </div>
-            </div>
-            <p>
-              하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두 할수있음
-              좋겠네 하고싶은 일모두 할수있음 좋겠네 하고싶은 일모두
-              할수있음 좋겠네
+              <span th:text="${questionSummary.answer.context}">질문 내용</span>
             </p>
           </div>
         </div>

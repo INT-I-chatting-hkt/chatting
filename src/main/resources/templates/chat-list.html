@@ -44,71 +44,15 @@
     <div th:replace="~{/fragment/fragment-parts :: headerCopy}"></div>
 
     <div class="container" style="width: 40%; background-color: #C9E4CA;margin: auto; height: 80vh; overflow: scroll;">
-        <div class="room-info-container" style="padding: 15px;">
-            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
+        <div th:each="chat : ${chatList}" class="room-info-container" style="padding: 15px;">
+            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px; cursor: pointer;" th:onClick="|location.href='@{chat/room(roomId=${chat.roomid})}'|">
                 <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
                     <img src="/images/chat-main-img.png">
                 </div>
                 <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
-                    <h4>알고리즘 스터디</h4>
+                    <h4><span th:text="${chat.chatname}">채팅방 이름</span></h4>
                     <div style="padding-top: 2vh;">
-                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="room-info-container" style="padding: 15px;">
-            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
-                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
-                    <img src="/images/chat-main-img.png">
-                </div>
-                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
-                    <h4>알고리즘 스터디</h4>
-                    <div style="padding-top: 2vh;">
-                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="room-info-container" style="padding: 15px;">
-            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
-                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
-                    <img src="/images/chat-main-img.png">
-                </div>
-                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
-                    <h4>알고리즘 스터디</h4>
-                    <div style="padding-top: 2vh;">
-                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="room-info-container" style="padding: 15px;">
-            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
-                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
-                    <img src="/images/chat-main-img.png">
-                </div>
-                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
-                    <h4>알고리즘 스터디</h4>
-                    <div style="padding-top: 2vh;">
-                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="room-info-container" style="padding: 15px;">
-            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px;">
-                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
-                    <img src="/images/chat-main-img.png">
-                </div>
-                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
-                    <h4>알고리즘 스터디</h4>
-                    <div style="padding-top: 2vh;">
-                        코딩테스트를 위해 알고리즘을 공부하는 사람들을 위한 채팅방입니다.
+                        <span th:text="${chat.chatdescription}">채팅방 설명</span>
                     </div>
                 </div>
             </div>
