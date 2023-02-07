@@ -29,4 +29,8 @@ public class ChattingRoom {
         ChattingRoom chattingRoom = new ChattingRoom(name,description,profileUrl);
         return chattingRoom;
     }
+
+    public void setProfile(String profilePath) {
+        this.profileUrl = profilePath;
+    }
 }

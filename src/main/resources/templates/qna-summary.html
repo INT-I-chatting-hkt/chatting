@@ -62,7 +62,7 @@
             </p>
           </div>
 
-<!--          채택된 답변이 null이 아닌 경우에만 출력-->
+          <!--          채택된 답변이 null이 아닌 경우에만 출력-->
           <div th:with="answer=${questionSummary.getAnswer()}" class="answer" th:if="${questionSummary.getAnswer() != null}">
             <div class="user_info">
               <div th:if="${answer.getUser().getProfileUrl() == null}">

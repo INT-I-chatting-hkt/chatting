@@ -38,4 +38,8 @@ public class User {
     public boolean validate(String userId,String userPassword){
         return (Objects.equals(this.userId, userId) && Objects.equals(this.userPassword,userPassword));
     }
+
+    public void setProfile(String profilePath) {
+        profileUrl = profilePath;
+    }
 }
