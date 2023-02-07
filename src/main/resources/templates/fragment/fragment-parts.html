@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<header th:fragment="headerCopy" th:style="${'background-color: #87bba2; height: 10vh'}">
+<header th:fragment="headerCopy(chatname, title)" th:style="${'background-color: #87bba2; height: 10vh'}">
   <div th:style="${'display: flex; width: 40%; margin: auto'}">
     <div th:style="${'width: 80%'}">
       <p th:style="${'margin: 0; padding-top: 2vh; font-size: 15px; color: #c9e4ca'}">
-        도라에몽 질문방
+        <span th:text="${chatname}"></span>
       </p>
       <p th:style="${'font-size: 30px; color: #364958; font-weight: 900'}">
-        질문 목록
+        <span th:text="${title}"></span>
       </p>
     </div>
     <div th:style="${'width: 20%; height: 10vh; padding-top: 4vh; display: flex;'}">

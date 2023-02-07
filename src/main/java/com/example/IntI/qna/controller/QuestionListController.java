@@ -37,7 +37,7 @@ public class QuestionListController {
         model.addAttribute("questionSummaryList", questionData);
         log.info("questionId={}", id);
 
-        return "/qna-summary";
+        return "qna-summary";
     }
 
     @GetMapping("/detail")
@@ -58,7 +58,7 @@ public class QuestionListController {
         model.addAttribute("answerList", answerData);
         log.info("questionId={}", id);
 
-        return "/qna-detail";
+        return "qna-detail";
     }
 
     @Data
