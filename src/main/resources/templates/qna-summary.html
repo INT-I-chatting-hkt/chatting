@@ -43,39 +43,41 @@
     <div class="question_list">
       <div th:each="questionSummary : ${QuestionList}" class="question" th:onClick="|location.href='@{qna/detail(questionId=${questionSummary.getQuestion().getId()})}'|">
         <div class="question_box">
-          <div class="user_info">
-            <div th:if="${questionSummary.getQuestion().getUser().getProfileUrl() == null}">
-              <img class="profile" src="/images/user-default.png" alt="dora"/>
+          <div th:with="question=${questionSummary.getQuestion()}">
+            <div class="user_info">
+              <div th:if="${question.getUser().getProfileUrl() == null}">
+                <img class="profile" src="/images/user-default.png" alt="dora"/>
+              </div>
+              <div th:unless="${question.getUser().getProfileUrl() == null}">
+                <img class="profile" src="/images/KDY-dora.jpg" alt="dora"/>
+              </div>
+              <div class="question_info">
+                <h3 class="user_name"><span th:text="${question.getUser().getNickname()}">사용자</span></h3>
+                <h6 class="date"><span th:text="${question.getCreateTime()}">시간</span></h6>
+              </div>
             </div>
-            <div th:unless="${questionSummary.getQuestion().getUser().getProfileUrl() == null}">
-              <img class="profile" src="/images/KDY-dora.jpg" alt="dora"/>
-            </div>
-            <div class="question_info">
-              <h3 class="user_name"><span th:text="${questionSummary.getQuestion().getUser().getNickname()}">사용자</span></h3>
-              <h6 class="date"><span th:text="${questionSummary.getQuestion().getCreateTime()}">시간</span></h6>
-            </div>
+
+            <p>
+              <span th:text="${question.getContext()}">질문 내용</span>
+            </p>
           </div>
 
-          <p>
-                <span th:text="${questionSummary.getQuestion().getContext()}">질문 내용</span>
-          </p>
-
 <!--          채택된 답변이 null이 아닌 경우에만 출력-->
-          <div class="answer" th:if="${questionSummary.getAnswer() != null}">
+          <div th:with="answer=${questionSummary.getAnswer()}" class="answer" th:if="${questionSummary.getAnswer() != null}">
             <div class="user_info">
-              <div th:if="${questionSummary.getAnswer().getUser().getProfileUrl() == null}">
+              <div th:if="${answer.getUser().getProfileUrl() == null}">
                 <img class="profile" src="/images/user-default.png" alt="profile"/>
               </div>
-              <div th:unless="${questionSummary.getAnswer().getUser().getProfileUrl() == null}">
+              <div th:unless="${answer.getUser().getProfileUrl() == null}">
                 <img class="profile" src="/images/KDY-dora.jpg" alt="profile"/>
               </div>
               <div class="question_info">
-                <h3 class="user_name"><span th:text="${questionSummary.getAnswer().getUser().getNickname()}">사용자</span></h3>
-                <h6 class="date"><span th:text="${questionSummary.getAnswer().getCreateTime()}">시간</span></h6>
+                <h3 class="user_name"><span th:text="${answer.getUser().getNickname()}">사용자</span></h3>
+                <h6 class="date"><span th:text="${answer.getCreateTime()}">시간</span></h6>
               </div>
             </div>
             <p>
-              <span th:text="${questionSummary.getAnswer().getContext()}">질문 내용</span>
+              <span th:text="${answer.getContext()}">질문 내용</span>
             </p>
           </div>
         </div>
