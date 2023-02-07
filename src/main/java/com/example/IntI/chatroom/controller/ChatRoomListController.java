@@ -28,7 +28,7 @@ public class ChatRoomListController {
         chatData.add(chatRoom2);
         model.addAttribute("chatList", chatData);
 
-        return "/chat-list";
+        return "chat-list";
     }
 
     @Data
