@@ -33,7 +33,7 @@ public class RoomController {
         log.info("# All Chat Rooms");
         model.addAttribute("list",chattingRoomRepository.findAllRooms());
         model.addAttribute("chatRoomDto",new ChatRoomDto());
-        return "rooms";
+        return "createRoom";
     }
 
     //채팅방 개설

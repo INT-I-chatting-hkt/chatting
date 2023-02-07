@@ -24,6 +24,10 @@ public class LoginController {
         model.addAttribute("loginForm",new LoginForm());
         return "login2";
     }
+    @GetMapping("/")
+    public String home(){
+        return "redirect:/login";
+    }
     @PostMapping("/login")
     public String login(@ModelAttribute(value = "loginForm")LoginForm loginForm, HttpServletResponse response){
         User user = userService.findOneByUserId(loginForm.getUserId());
