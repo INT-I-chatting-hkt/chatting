@@ -100,7 +100,7 @@
                       <h3 class="user_name"><span th:text="${answer.user.nickname}">사용자</span></h3>
                       <h6 class="date"><span th:text="${#temporals.format(answer.createTime,'yy-MM-dd a hh:mm')}">시간</span></h6>
                     </div>
-                    <img class="star" src="/images/star.png" alt="star" th:data-id="${answer.id}"/>
+                    <img th:if="${userId==questionUserId}" class="star" src="/images/star.png" alt="star" th:data-id="${answer.id}"/>
                   </div>
                   <p>
                     <span th:text="${answer.context}">질문 내용</span>
