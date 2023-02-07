@@ -35,7 +35,7 @@
     </div>
     <div th:style="${'width: 50%'}">
       <div th:style="${'width: 40px; margin: auto; padding-top: 9px; cursor: pointer;'}">
-        <img src="/images/logout.png" th:style="${'max-width: 100%; height: auto'}"/>
+        <img src="/images/logout.png" th:style="${'max-width: 100%; height: auto'}" th:onclick="|location.href='@{/logout}'|"/>
       </div>
     </div>
   </div>

@@ -40,7 +40,7 @@ public class QnaRepository {
         else
             return em.createQuery("select a from Answer a where a.question.id=:questionId and a.id <>: answerId"
                             , Answer.class)
-                .setParameter("answerId", answerId).getResultList();
+                .setParameter("answerId", answerId).setParameter("questionId",questionId).getResultList();
     }
 
     public Answer findAdoptAnswer(Long questionId) {
