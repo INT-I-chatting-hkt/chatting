@@ -186,19 +186,19 @@
                         </div>';
         return firstString+profileURL+secondString+user+thirdString+msg+fourthString;
     }
-    var stringToHTML = function (msg,flag,profileURL) {
+    var stringToHTML = function (msg,flag,profileURL,writer) {
         var dom = document.createElement('li');
         dom.className = 'chatting-container';
         if(flag==0) {
-            dom.innerHTML = insertmsgLeftToString(msg,nickName,profileURL);
+            dom.innerHTML = insertmsgLeftToString(msg,writer,profileURL);
         }else{
-            dom.innerHTML = insertmsgToString(msg,profileURL);
+            dom.innerHTML = insertmsgToString(msg,userProfileURL);
         }
         return dom;
     };
-    function receiveChat(flag,message,profileURL){
+    function receiveChat(flag,message,profileURL,writer){
         const ulNode = document.getElementById("chatting-container-ul");
-        const liNode = stringToHTML(message,flag,profileURL);
+        const liNode = stringToHTML(message,flag,profileURL,writer);
         ulNode.appendChild(liNode);
         const scrollObj = document.getElementById("chatting-room-container");
         scrollObj.scrollTop = scrollObj.scrollHeight;
@@ -239,10 +239,10 @@
                 let str = '';
                 console.log("message body : "+content);
                 if(writer === nickName){
-                    receiveChat(1,message,profileURL);
+                    receiveChat(1,message,profileURL,writer);
                 }
                 else{
-                    receiveChat(0,message,profileURL);
+                    receiveChat(0,message,profileURL,writer);
                 }
             });
             //3. send(path, header, message)로 메세지를 보낼 수 있음
