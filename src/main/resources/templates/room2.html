@@ -233,11 +233,11 @@
                 console.log("message body : "+content);
                 if(writer === nickName){
                     console.log("my echo : "+writer);
-                    receiveChat(0,message)
+                    receiveChat(1,message)
                 }
                 else{
                     console.log("my nickName : "+nickName+" ohter's nickName : "+writer)
-                    receiveChat(1,message)
+                    receiveChat(0,message)
                 }
             });
             //3. send(path, header, message)로 메세지를 보낼 수 있음
