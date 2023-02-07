@@ -34,9 +34,13 @@ public class QnaRepository {
         return em.find(Answer.class, answerId);
     }
 
-    public List<Answer> findNotAdoptedAnswers(Long questionId) {
-        return em.createQuery("select a from Answer a where a.question.id=:questionId and a.status=:status", Answer.class)
-                .setParameter("questionId", questionId).setParameter("status", NOT_ADOPT).getResultList();
+    public List<Answer> findNotAdoptedAnswers(Long questionId,Long answerId) {
+        if (answerId==null)
+            return findAllAnswers(questionId);
+        else
+            return em.createQuery("select a from Answer a where a.question.id=:questionId and a.id <>: answerId"
+                            , Answer.class)
+                .setParameter("answerId", answerId).getResultList();
     }
 
     public Answer findAdoptAnswer(Long questionId) {
@@ -50,14 +54,14 @@ public class QnaRepository {
         }
     }
 
-    public Answer writeAnswer(Question question, User writer, String context) {
-        Answer answer = new Answer(question, writer, context);
-        em.persist(answer);
-        return answer;
+    public List<Question> findAllWithAdoptedAnswer(Long roomId){
+        return em.createQuery("select q from Question q left join fetch q.adoptedAnswer aa" +
+                " where q.chattingRoom.id =: roomId",Question.class).setParameter("roomId",roomId)
+                .getResultList();
     }
 
-    public Answer adopt(Answer answer) {
-        answer.updateStatus(ADOPT);
-        return answer;
+    public Long createAnswer(Answer answer) {
+        em.persist(answer);
+        return answer.getId();
     }
 }

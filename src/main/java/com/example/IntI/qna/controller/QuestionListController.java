@@ -2,8 +2,13 @@ package com.example.IntI.qna.controller;
 
 import com.example.IntI.chat.domain.Question;
 import com.example.IntI.domain.Answer;
+import com.example.IntI.domain.User;
 import com.example.IntI.qna.domain.summaryQuestion;
 import com.example.IntI.qna.service.QnaService;
+import com.example.IntI.security.JwtTokenProvider;
+import com.example.IntI.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,20 +24,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionListController {
     private final QnaService qnaService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping
-    public String qnaSummary(@RequestParam String roomId, Model model) {
-        Long room = stringToLong(roomId);
+    public String qnaSummary(@RequestParam Long roomId, Model model) {
 
-        List<Question> questionList = qnaService.getAllQuestions(room); // 해당 채팅방의 모든 question을 get
+        List<Question> questionList = qnaService.getAllQuestionsWithAdoptedAnswer(roomId);
 
         List<summaryQuestion> summaryQuestionList = new ArrayList<>();
         for(Question quest:questionList){
-            summaryQuestion summaryQuest = new summaryQuestion(quest, qnaService.getAdoptAnswer(quest.getId()));
+            summaryQuestion summaryQuest = new summaryQuestion(quest, quest.getAdoptedAnswer());
             summaryQuestionList.add(summaryQuest);
         }
-
-        log.info("questionId={}", room);
         log.info("summaryQuestions={}", summaryQuestionList);
 
         model.addAttribute("QuestionList", summaryQuestionList);
@@ -41,44 +44,47 @@ public class QuestionListController {
     }
 
     @GetMapping("/detail")
-    public String qnaDetailGet(@RequestParam String questionId, Model model) {
+    public String qnaDetailGet(@RequestParam Long questionId, Model model) {
+        log.info("questionId={}", questionId);
 
-        Long questId = stringToLong(questionId);
-        log.info("questionId={}", questId);
-
-        Question question = qnaService.getQuestion(questId);
-        List<Answer> answerData = qnaService.getNotAdoptedAnswers(questId);
-        Answer adoptAnswer = qnaService.getAdoptAnswer(questId);
+        Question question = qnaService.getQuestion(questionId);
+        Answer adoptAnswer = question.getAdoptedAnswer();
+        Long adoptAnswerId = (adoptAnswer!=null ? adoptAnswer.getId() : null );
+        List<Answer> answers = qnaService.getNotAdoptedAnswers(question.getId(),adoptAnswerId);
         
         model.addAttribute("question", question);
-        model.addAttribute("answerList", answerData);
+        model.addAttribute("answerList", answers);
         model.addAttribute("answerAdopt", adoptAnswer);
 
         return "qna-detail";
     }
 
     @PostMapping("/detail")
-    public String qnaDetailPost(@RequestParam String questionId, @RequestBody String answerId, Model model) {
+    public Long qnaDetailPost(@RequestBody AdaptForm adaptForm) {
+        log.info("answerId={}", adaptForm.getAnswerId()); // 채택된 답변의 id
+        qnaService.adoptAnswer(adaptForm.getAnswerId(),adaptForm.getQuestionId()); // star를 클릭한 답변 채택
+        return adaptForm.getRoomId();
+    }
+    @Data
+    public static class AdaptForm{
+      private Long answerId;
+      private Long questionId;
+      private Long roomId;
+    };
 
-        Long questId = stringToLong(questionId);
-        Long ansId = stringToLong(answerId);
-        log.info("answerId={}", ansId); // 채택된 답변의 id 
-        log.info("questionId={}", questId);
-
-        qnaService.adoptAnswer(ansId); // star를 클릭한 답변 채택
-        Question question = qnaService.getQuestion(questId);
-        List<Answer> answerData = qnaService.getNotAdoptedAnswers(questId);
-        Answer adoptAnswer = qnaService.getAdoptAnswer(questId);
-
-        model.addAttribute("question", question);
-        model.addAttribute("answerList", answerData);
-        model.addAttribute("answerAdopt", adoptAnswer);
-
-        return "redirect:/qna-detail";
+    @ResponseBody
+    @PostMapping("/answer")
+    public Long createAnswer(@RequestBody AnswerForm answerForm, HttpServletRequest request){
+        String token = jwtTokenProvider.resolveCookieToken(request,"inti-token");
+        String userId = jwtTokenProvider.getValidateValue(token);
+        return qnaService.createAnswer(userId,answerForm.getContext(),answerForm.getQuestionId());
     }
 
-    public Long stringToLong(String id){
-        Integer integerId = Integer.parseInt(id);
-        return integerId.longValue();
+    @Data
+    public static class AnswerForm{
+        private String context;
+        private Long questionId;
     }
+
+
 }

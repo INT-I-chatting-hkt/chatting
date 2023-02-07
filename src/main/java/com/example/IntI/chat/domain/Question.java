@@ -23,6 +23,9 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     private ChattingRoom chattingRoom;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Answer adoptedAnswer;
+
     @OneToMany(mappedBy = "question")
     private List<Answer> answerList = new ArrayList<>();
 
@@ -38,5 +41,9 @@ public class Question {
     public static Question create(String context,User user,ChattingRoom chattingRoom){
         Question question = new Question(context,user,chattingRoom);
         return question;
+    }
+
+    public void adopt(Answer answer){
+        this.adoptedAnswer=answer;
     }
 }
