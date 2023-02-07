@@ -4,7 +4,7 @@ import com.example.IntI.chat.domain.Question;
 import com.example.IntI.domain.Answer;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Data
@@ -26,14 +26,12 @@ public class QnaDto {
 
         questName = question.getUser().getNickname();
         questImagePath = question.getUser().getProfileUrl();
-        LocalDateTime qTime = question.getCreateTime();
-        questTime = qTime.getYear() + "-" + qTime.getMonth() + "-" + qTime.getDayOfMonth() + " " + qTime.getHour() + ":" + qTime.getMinute();
+        questTime = question.getCreateTime().format(DateTimeFormatter.ofPattern("yy-MM-dd hh:mm a"));
         questContext = question.getContext();
 
         answerName = answer.get().getUser().getNickname();
         questImagePath = answer.get().getUser().getProfileUrl();
-        LocalDateTime aTime = answer.get().getCreateTime();
-        questTime = aTime.getYear() + "-" + aTime.getMonth() + "-" + aTime.getDayOfMonth() + " " + aTime.getHour() + ":" + aTime.getMinute();
+        answerTime = answer.get().getCreateTime().format(DateTimeFormatter.ofPattern("yy-MM-dd hh:mm a"));
         questContext = answer.get().getContext();
 
         return this;
