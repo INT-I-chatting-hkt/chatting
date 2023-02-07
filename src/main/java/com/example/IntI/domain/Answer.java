@@ -26,7 +26,7 @@ public class Answer {
     public Answer() {
     }
 
-    public Answer(Question question, User user, String context) {
+    public Answer(User user, Question question, String context) {
         this.context = context;
         this.question = question;
         this.user = user;

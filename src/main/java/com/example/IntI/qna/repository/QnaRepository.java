@@ -55,14 +55,13 @@ public class QnaRepository {
     }
 
     public List<Question> findAllWithAdoptedAnswer(Long roomId){
-        return em.createQuery("select q from Question q join fetch q.adoptedAnswer aa" +
+        return em.createQuery("select q from Question q left join fetch q.adoptedAnswer aa" +
                 " where q.chattingRoom.id =: roomId",Question.class).setParameter("roomId",roomId)
                 .getResultList();
     }
 
-    public Answer writeAnswer(Question question, User writer, String context) {
-        Answer answer = new Answer(question, writer, context);
+    public Long createAnswer(Answer answer) {
         em.persist(answer);
-        return answer;
+        return answer.getId();
     }
 }
