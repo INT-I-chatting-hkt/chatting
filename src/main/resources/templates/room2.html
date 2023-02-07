@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="wsidth=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+    input:focus {outline: none;} /* outline 테두리 없애기 */
+    body {
+        /*background-color: #fafafa;*/
+        background-color: #C9E4CA;
+
+    }
+    li{
+        list-style-type : none
+    }
+    .container {
+        padding: 0px;
+    }
+
+    .chatting-container {
+        padding: 15px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    body {
+        color: white;
+    }
+
+    button {
+        border: 0;
+        background-color: transparent;
+    }
+
+    #chatting-container-ul{
+        padding-left: 0px;
+    }
+    input {
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+    }
+
+    #test::-webkit-scrollbar {
+        display: none;
+        /* 크롬, 사파리, 오페라, 엣지 */
+    }
+</style>
+
+<body>
+<div style="height: 100vh;">
+    <div class="header" style="background-color: #87BBA2; height: 10vh;">
+        <div style="width: 40%; margin: auto;">
+            <p style="font-size: 30px; font-weight: 900; padding-top: 2vh;">채팅방 제목</p>
+        </div>
+    </div>
+    <div class="container" style="width: 40%; background-color: #C9E4CA;margin: auto; height: 80vh;">
+        <div id="chatting-room-container" class="chatting-room-container" style="height: 70vh; overflow: scroll;">
+
+            <ul id="chatting-container-ul">
+
+                <li class="chatting-container">
+                    <div style="display: flex; height: max-content;">
+                        <div style="background-color: #C9E4CA; width: 15%; height: 90px;">
+                            <div class="user-image" style="width: 45px; margin: auto;">
+                                <img src="kth-image/user1.png" style="border-radius: 50%;">
+                            </div>
+                        </div>
+                        <div style="max-width: 70%; display: inline;">
+                            <div
+                                    style="background-color: #C9E4CA; font-size: 17px; font-weight: 800; color: #3B6064;">
+                                사용자1
+                            </div>
+                            <div
+                                    style="background-color: #3B6064; padding: 9px; border-radius: 15px 15px 15px 0px; display: flex">
+                                <div>
+                                    하고싶은 일모두 할수있음 좋겠네
+                                    하늘만큼 땅만큼 너무나 많은꿈들
+                                    모두모두모두다 이루게해준다네<br>
+                                    신기한주머니로 이루게해준다네<br>
+                                    하늘을 마음껏 날고싶어랑<br>
+                                    -조아 대나무 헬리콥텅!-<br>
+                                    아아앙 난 네가 정말조아 도라에-몽<br>
+                                    앙앙앙 난 니가 정말조아 도라에-몽<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="chatting-container">
+                    <div style="display: flex; height: max-content; justify-content: end;">
+                        <div style="max-width: 70%; display: inline;">
+                            <div
+                                    style="background-color: #87BBA2; padding: 9px; border-radius: 15px 15px 0px 15px; display: flex">
+                                <div>
+                                    하고싶은 일모두 할수있음 좋겠네
+                                    하늘만큼 땅만큼 너무나 많은꿈들<br>
+                                    모두모두모두다 이루게해준다네<br>
+                                    신기한주머니로 이루게해준다네<br>
+                                    하늘을 마음껏 날고싶어랑<br>
+                                    -조아 대나무 헬리콥텅!-<br>
+                                    아아앙 난 네가 정말조아 도라에-몽<br>
+                                    앙앙앙 난 니가 정말조아 도라에-몽<br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color: #C9E4CA; width: 15%; height: 55px;">
+                            <div class="user-image" style="width: 45px; margin: auto;">
+                                <img src="kth-image/user1.png" style="border-radius: 50%;">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="chatting-input-container" style="height: 10vh; background-color: #3B6064; display: flex;
+            padding:1vh 1% 1vh 1%; border-radius: 14px;">
+            <div style="width: 10%; padding-top: 6px;padding-right: 2%;">
+                <div id="question-btn"style="width: 40px; margin: auto; border-radius: 24px;">
+                    <img src="kth-image/question.png">
+                </div>
+            </div>
+            <div style="width: 80%; background-color: white; border-radius: 5px; height: 7vh;">
+                <input id="message-input" style="width: 100%; height: 8vh; color: black;"
+                       onkeyup="if(window.event.keyCode==13){test()}"/>
+            </div>
+            <div style="width: 10%; padding-top: 6px;padding-left: 2%;">
+                <button id="send-btn" style="width: 40px; margin: auto;">
+                    <img src="kth-image/send.png">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="footer" style="background-color: #87BBA2; height: 10vh; width: 100%;">
+        <div style="width: 40%; margin: auto;display: flex;">
+            <div style="width: 50%;">
+                <div style="width:40px; margin:auto;padding-top:9px;">
+                    <img src="kth-image/chatroomlist.png">
+                </div>
+            </div>
+            <div style="width: 50%;">
+                <div style="width:40px; margin: auto;padding-top: 9px;">
+                    <img src="kth-image/setting.png">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+
+    var roomName = [[${room.name}]];
+    var roomId = [[${room.id}]];
+    var nickName = [[${user.nickname}]];
+    var userId = [[${user.userId}]];
+
+    function sendMessage() {
+        const message = document.getElementById("message").value;
+        //webSocket.send(message);
+    }
+    var insertmsgToString = function (msg) {
+        let firstString = '<div style="display: flex; height: max-content; justify-content: end;">\
+                            <div style="max-width: 70%; display: inline;">\
+                                <div style="background-color: #87BBA2; padding: 9px; border-radius: 15px 15px 0px 15px; display: flex">\
+                                    <div>';
+        let secondString = '</div>\
+                                </div>\
+                            </div>\
+                            <div style="background-color: #C9E4CA; width: 15%; height: 55px;">\
+                                <div class="user-image" style="width: 45px; margin: auto;">\
+                                    <img src="kth-image/user1.png" style="border-radius: 50%;">\
+                                </div>\
+                            </div>\
+                        </div>';
+        return firstString + msg + secondString;
+    }
+    var insertmsgLeftToString = function(msg,user){
+        let firstString = '<li class="chatting-container">\
+                        <div style="display: flex; height: max-content;">\
+                            <div style="background-color: #C9E4CA; width: 15%; height: 90px;">\
+                                <div class="user-image" style="width: 45px; margin: auto;">\
+                                    <img src="kth-image/user1.png" style="border-radius: 50%;">\
+                                </div>\
+                            </div>\
+                            <div style="max-width: 70%; display: inline;">\
+                                <div\
+                                    style="background-color: #C9E4CA; font-size: 17px; font-weight: 800; color: #3B6064;">'
+        let secondString='</div>\
+                                <div\
+                                    style="background-color: #3B6064; padding: 9px; border-radius: 15px 15px 15px 0px; display: flex">\
+                                    <div>';
+        let thirdString =  '</div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </li>';
+        return firstString+user+secondString+msg+thirdString;
+    }
+    var stringToHTML = function (msg,flag) {
+        var dom = document.createElement('li');
+        dom.className = 'chatting-container';
+        if(flag==0) {
+            dom.innerHTML = insertmsgLeftToString(msg,nickName);
+        }else{
+            dom.innerHTML = insertmsgToString(msg)
+        }
+        return dom;
+    };
+    const btnClick = document.getElementById("send-btn");
+    function sendChat(flag){
+        const ulNode = document.getElementById("chatting-container-ul");
+        const messageBox = document.getElementById("message-input");
+        let message = messageBox.value;
+        messageBox.value = "";
+        const liNode = stringToHTML(message,flag);
+        ulNode.appendChild(liNode);
+        const scrollObj = document.getElementById("chatting-room-container");
+        scrollObj.scrollTop = scrollObj.scrollHeight;
+    }
+    btnClick.addEventListener("click", sendChat);
+    const $question_btn = document.getElementById("question-btn");
+    $question_btn.addEventListener("click",()=>{
+        if($question_btn.style.backgroundColor!="white"){
+            $question_btn.style.backgroundColor="white";
+        }else{
+            $question_btn.style.backgroundColor="#3B6064";
+        }
+    });
+
+    function test() {
+        stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, userId: userId, nickName: nickName}));
+    }
+
+
+    $(document).ready(function(){
+
+        console.log(roomName + ", " + roomId + ", " + nickName);
+
+        var sockJs = new SockJS("/stomp/chat");
+        //1. SockJS를 내부에 들고있는 stomp를 내어줌
+        var stomp = Stomp.over(sockJs);
+
+        //2. connection이 맺어지면 실행
+        stomp.connect({}, function (){
+            console.log("STOMP Connection")
+
+            //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+            stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                console.log("received message!!!!!!!!!!!!");
+                var content = JSON.parse(chat.body);
+                var writer = content.nickName;
+                var message = content.message;
+                var str = '';
+                console.log("message body : "+content);
+                if(writer === nickName){
+                    sendChat(1)
+                }
+                else{
+                    sendChat(2)
+                }
+            });
+
+            //3. send(path, header, message)로 메세지를 보낼 수 있음
+            stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, userId: userId, nickName: nickName}))
+        });
+
+        $("#button-send").on("click", function(e){
+            var msg = document.getElementById("msg");
+
+            console.log(nickName + ":" + msg.value);
+            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, userId: userId, nickName: nickName,
+                message: msg.value, MessageType: 'Normal'}));
+            msg.value = '';
+        });
+    });
+</script>
+
+</html>
