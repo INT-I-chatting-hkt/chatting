@@ -31,6 +31,7 @@ body {
 .question .profile {
   border: 3px solid #ffffff;
   height: 50px;
+  width: 50px;
   border-radius: 50%;
 }
 .question .user_name {
@@ -61,7 +62,8 @@ body {
 .answer .profile {
   border: 2.5px;
   solid: #364958;
-  height: 40px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
 }
 .answer .question_info {
