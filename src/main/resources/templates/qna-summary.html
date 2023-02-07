@@ -31,15 +31,13 @@
 <body style="background-color: #c9e4ca; height: 100vh">
 <div th:replace="~{fragment/fragment-parts :: headerCopy('도라에몽 질문방','질문 목록')}"></div>
 
-<div style="
-        width: 40%;
-        background-color: #c9e4ca;
-        margin: auto;
-        height: 80vh;
-        overflow: scroll;
-        padding: 0px;
-      ">
-  <div class="main_chat">
+<!--답변이 존재하지 않는 경우 메세지 출력-->
+
+<div style="width: 40%; background-color: #c9e4ca; margin: auto; height: 80vh; overflow: scroll; padding: 0px;">
+  <div th:if="${QuestionList.size()==0}" class="none_message">
+    작성된 질문이 존재하지 않습니다. 질문을 작성해주세요~
+  </div>
+  <div th:unless="${QuestionList.size()==0}" class="main_chat">
     <div class="question_list">
       <div th:each="questionSummary : ${QuestionList}" class="question" th:onClick="|location.href='@{qna/detail(questionId=${questionSummary.getQuestion().getId()})}'|">
         <div class="question_box">

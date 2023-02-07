@@ -44,20 +44,24 @@
     <div th:replace="~{fragment/fragment-parts::headerCopy(null, '채팅 목록')}"></div>
 
     <div class="container" style="width: 40%; background-color: #C9E4CA;margin: auto; height: 80vh; overflow: scroll;">
-        <div th:each="chat : ${chatList}" class="room-info-container" style="padding: 15px;">
-            <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px; cursor: pointer;" th:onClick="|location.href='@{chat/room(roomId=${chat.id})}'|">
-                <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
-                    <img src="/images/chat-main-img.png">
-                </div>
-                <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
-                    <h4><span th:text="${chat.name}">채팅방 이름</span></h4>
-                    <div style="padding-top: 2vh;">
-                        <span th:text="${chat.description}">채팅방 설명</span>
+        <div th:if="${chatList.size()==0}" class="none_message" style="margin-top: 35vh; font-size: 20px; font-weight: 300; text-align: center; color: #364958;">
+            생성된 채팅방이 존재하지 않습니다. 채팅방을 생성해 주세요~
+        </div>
+        <div th:unless="${chatList.size()==0}">
+            <div th:each="chat:${chatList}" class="room-info-container" style="padding: 15px;">
+                <div class="room-info" style="background-color: #3B6064; display: flex; padding: 1vh 2% 2vh 2%; border-radius: 10px; cursor: pointer;" th:onClick="|location.href='@{chat/room(roomId=${chat.id})}'|">
+                    <div style="width: 18%; padding-top: 2vh; padding-left: 1%; padding-right: 1%; padding-top: 2vh;">
+                        <img src="/images/chat-main-img.png">
+                    </div>
+                    <div style="width: 82%; padding: 1vh 1% 1vh 3%;">
+                        <h4><span th:text="${chat.name}">채팅방 이름</span></h4>
+                        <div style="padding-top: 2vh;">
+                            <span th:text="${chat.description}">채팅방 설명</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div th:replace="~{fragment/fragment-parts :: footerCopy}"></div>
